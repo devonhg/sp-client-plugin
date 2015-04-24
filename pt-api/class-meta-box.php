@@ -27,6 +27,8 @@ function dhg_debug( $entry , $value ){
         file_put_contents( $f , $fo );
     }else{
         file_put_contents( $f , $entry . '=' . $value . " | " );
+
+        
     }
 }
 
