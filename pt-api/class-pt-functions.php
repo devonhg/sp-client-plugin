@@ -34,7 +34,7 @@ class MYPLUGIN_func{
 		within the loop it's obtained automatically. 
 
 	*/
-	public static function MYPLUGIN_single( $archive = false , $display = null , $pt = null, $post_slug = null ){
+	public static function single( $archive = false , $display = null , $pt = null, $post_slug = null ){
 
 		if ( is_array( $display ) ){
 			extract( $display, EXTR_PREFIX_SAME, "dsp");
@@ -181,7 +181,7 @@ class MYPLUGIN_func{
 
 
 	//This function is not meant to be used beyond within the plugin
-	public static function MYPLUGIN_archive( $args , $wpargs = "" , $pt = null ){
+	public static function archive( $args , $wpargs = "" , $pt = null ){
 
 		global $post;
 
@@ -207,7 +207,7 @@ class MYPLUGIN_func{
 	        if ( $the_query->have_posts() ) {
 	        while($the_query->have_posts()) : $the_query->the_post();
 
-				$out .= MYPLUGIN_func::MYPLUGIN_single( true , $args , $pt , get_the_ID()  );
+				$out .= MYPLUGIN_func::single( true , $args , $pt , get_the_ID()  );
 
 	        endwhile; 
 	        }else{

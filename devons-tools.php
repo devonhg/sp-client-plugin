@@ -19,16 +19,8 @@ if ( ! defined( 'WPINC' ) ) { die; }
 	Any files put into the inc folder automatically get included. 
 */
 
+//Include the core class of the post type api
 include_once('pt-api/class-core.php');
-
-
-
-/*
-define("MYPLUGIN_HOME_DIR", plugin_dir_path( __FILE__ ));
-define("MYPLUGIN_HOME_URL", plugin_dir_url( __FILE__ ));
-
-include_once( MYPLUGIN_HOME_DIR . "framework/class-devons_tools_core.php" );
-*/
 
 /*
 ===========================================
@@ -41,6 +33,7 @@ $pt_books = new MYPLUGIN_post_type( "Books", "Book" );
 
 $pt_books->reg_tax("Genres", "Genre" );
 $pt_books->reg_tax("Authors", "Author" );
+
 
 $pt_books->reg_meta('Price', 'The Cost of Item');
 $pt_books->reg_meta('Weight', 'The Weight of Item');

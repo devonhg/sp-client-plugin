@@ -36,7 +36,7 @@ class MYPLUGIN_pt_sc{
             'isCats' => ($cats == 'true'), 
         );
 
-    	return MYPLUGIN_func::MYPLUGIN_archive( $args , $wpargs , $this->pt); 
+    	return MYPLUGIN_func::archive( $args , $wpargs , $this->pt); 
     }
 
     public function display_single_f($atts){
@@ -58,7 +58,7 @@ class MYPLUGIN_pt_sc{
             'isCats' => ($cats == 'true'), 
         );
 
-        return MYPLUGIN_func::MYPLUGIN_single( false, $args , $this->pt, $entry );
+        return MYPLUGIN_func::single( false, $args , $this->pt, $entry );
 
     }
 
