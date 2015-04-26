@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
-MYPLUGIN_pt_pcs{
+class MYPLUGIN_pt_pcs{
 
 	public function title(){
 
