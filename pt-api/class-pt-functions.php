@@ -12,7 +12,7 @@ class MYPLUGIN_func{
 		$pst_meta = get_post_custom( $ID ); 
 		$out .= "<ul>";
 			foreach($pst_meta as $key=>$val){
-				if ($key[0] != "_"){
+				if (strpos($key,'_vkey') !== false && ( $key[0] !== "h" && $key[1] !== "_" ) ){
 					$out .= "<li>";
 						$out .= "<label>" . ucfirst(str_replace(array("meta_", "_vkey") , array("","") , $key)) . "</label>";
 						$out .= ' : ' . $val[0] . '<br/>';

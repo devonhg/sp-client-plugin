@@ -35,7 +35,7 @@ $pt_books->reg_tax("Genres", "Genre" );
 $pt_books->reg_tax("Authors", "Author" );
 
 
-$pt_books->reg_meta('Price', 'The Cost of Item');
+$pt_books->reg_meta('Price', 'The Cost of Item', true);
 $pt_books->reg_meta('Weight', 'The Weight of Item');
-$pt_books->reg_meta('Cover', 'The Cover Type', "radio", array("Hardcover", "Softcover"));
-$pt_books->reg_meta('Color', 'The Color', "color");
+$pt_books->reg_meta('Cover', 'The Cover Type', false ,  "radio", array("Hardcover", "Softcover"));
+$pt_books->reg_meta('Color', 'The Color', true , "color");

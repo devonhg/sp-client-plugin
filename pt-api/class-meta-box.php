@@ -22,7 +22,7 @@ class MYPLUGIN_pt_meta {
 		if (is_admin()){
 			if ($hide){ $this->id = "h_meta_" . trim(strtolower($title)); }
 			else { $this->id = "meta_" . trim(strtolower($title)); }
-			
+
 			$this->title = $title;
 			$this->pt = $pt;
 			$this->desc = $desc; 
