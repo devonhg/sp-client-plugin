@@ -41,21 +41,20 @@ class MYPLUGIN_post_type{
                 add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_cats' ) );
 
             //Archive Actions
-                add_action("pt_archive" , array("MYPLUGIN_pt_pcs",'pt_title_a'));
-                //add_action("pt_archive" , array("MYPLUGIN_pt_pcs",'pt_test') );
+                add_action("pt_archive" , array("MYPLUGIN_pt_pcs",'pt_title_a'));  
+                add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_fimed' ) );                         
+                add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
 
-                
-                //add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
-                //add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_fi' ) );
                 //add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_meta' ) );
                 //add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_cats' ) );
 
             //Shortcode Actions
                 add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs",'pt_title_a'),10,1);
+                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_fimed' ),10,1);
                 add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_content' ),10,1);
-                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_fi' ),10,1);
-                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_meta' ),10,1);
-                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_cats' ),10,1);
+
+                //add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_meta' ),10,1);
+                //add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_cats' ),10,1);
             }
         }
 

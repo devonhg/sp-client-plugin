@@ -48,6 +48,20 @@ class MYPLUGIN_pt_pcs{
 			echo $out; 	
 		}
 
+		public static function pt_fimed( $quer = null ){
+			if (!$quer == null){ $post = $quer; }
+			else{ global $post; }
+
+			$out = "";
+	    	if ( has_post_thumbnail( $post->ID ) ){
+		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
+		    		$out .= "<a title='" . $post->post_title . "' href='" . get_permalink( $post->ID ) .  "' alt='" . $post->post_title . "'>" . get_the_post_thumbnail( $post->ID , "medium" ) . "</a>"; 
+		    	$out .= "</div>";
+			}		
+
+			echo $out; 	
+		}
+
 		public static function pt_meta( $quer = null ){
 			if (!$quer == null){ $post = $quer; }
 			else{ global $post; }
@@ -65,7 +79,7 @@ class MYPLUGIN_pt_pcs{
 			else{ global $post; }
 
 			$out = "";
-			$pt_values = get_object_taxonomies( $post->post_type );
+			$pt_values = get_object_taxonomies( get_post_type( $post->ID ) );
 	    	$out .= "<div class='" . "MYPLUGIN-categories" . "'>";
 		    	foreach($pt_values as $tax){
 		    		$out .= MYPLUGIN_func::MYPLUGIN_get_cats( $tax , $post->ID , $post->post_type );
