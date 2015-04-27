@@ -15,23 +15,8 @@ if ( ! defined( 'WPINC' ) ) { die; }
 		do_action('pt_single');
 	}
 
+	function pt_shortcode(){
+		do_action('pt_shortcode');		
+	}
+
 //Post Pieces
-	function pt_title(){
-		do_action('pt_title');
-	}
-
-	function pt_content(){
-		do_action('pt_content');
-	}
-	
-	function pt_fi(){
-		do_action('pt_fi');
-	}
-
-	function pt_meta(){
-		do_action('pt_meta');
-	}
-
-	function pt_cats(){
-		do_action('pt_cats');
-	}

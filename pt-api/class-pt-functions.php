@@ -7,6 +7,24 @@ if ( ! defined( 'WPINC' ) ) { die; }
 
 class MYPLUGIN_func{
 
+	public static function print_meta( $ID ){
+		$out = "";
+		$pst_meta = get_post_custom( $ID ); 
+		$out .= "<ul>";
+			foreach($pst_meta as $key=>$val){
+				if ($key[0] != "_"){
+					$out .= "<li>";
+						$out .= "<label>" . ucfirst(str_replace(array("meta_", "_vkey") , array("","") , $key)) . "</label>";
+						$out .= ' : ' . $val[0] . '<br/>';
+					$out .= "</li>";
+				}
+			} 
+		$out .= "</ul>";
+
+		return $out; 
+	}
+
+
 	// Function by David Paulsson, get ID from slug. Modified to also consider post type by Devon Godfrey.  
 	// MYPLUGIN_get_id_by_slug('any-page-slug');
 	public static function MYPLUGIN_get_id_by_slug($page_slug, $pt) {
@@ -90,22 +108,29 @@ class MYPLUGIN_func{
 	    	}
 
 	    		//Title of post
+	    		/*
 	    		if ($isTitle){
 		    		if ($archive == true) $out .= "<a title='" . $the_pst->post_title . "' href='" . get_permalink( $pID ) .  "'>";
 			    		$out .= "<h1>" . $the_pst->post_title . "</h1>";
 			    	if ($archive == true) $out .= "</a>";
 		    	}
+		    	*/
 
 		    	//If there is a featured image, display it. 
+		    	/*
 		    	if ($isFI){
 			    	if ( has_post_thumbnail( $pID ) ){
 				    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
 				    		$out .= "<a title='" . $the_pst->post_title . "' href='" . get_permalink( $pID ) .  "' alt='" . $the_pst->post_title . "'>" . get_the_post_thumbnail( $pID ) . "</a>"; 
 				    	$out .= "</div>";
+		   			}
 		   		}
-		   		}
+		   		*/
 
-		   		//This lists the meta of the post. 
+		   		//This lists the meta of the post.
+
+		   		/* 
+
 		   		if ($isMeta){
 			   		$out .= "<div class='" . "MYPLUGIN-meta" . "'>";
 				    		$pst_meta = get_post_custom( $pID ); 
@@ -122,6 +147,9 @@ class MYPLUGIN_func{
 				    $out .= "</div>";
 				}
 
+				*/
+
+				/*
 			    //The content, if archive show only excerpt, otherwise show everything. 
 			    if ($isContent){
 			   		$out .= "<div class='" . "MYPLUGIN-content" . "'>";
@@ -133,6 +161,10 @@ class MYPLUGIN_func{
 				    $out .= "</div>";
 				}
 
+				*/
+
+				/*
+
 			    //List categories. 
 			    if ($isCats){
 			    	$out .= "<div class='" . "MYPLUGIN-categories" . "'>";
@@ -141,6 +173,8 @@ class MYPLUGIN_func{
 				    	}
 			    	$out .= "</div>";
 		    	}
+
+		    	*/
 
 		    $out .= "</article>";
 

@@ -24,7 +24,7 @@ class MYPLUGIN_post_type{
                 'isCats' => true,
         );
     //Magic Methods
-        public function __construct($name, $name_s ){
+        public function __construct( $name , $name_s , $default = true ){
             $this->name = $name;
             $this->name_s = $name_s;
             $this->pt_slug = "pt_" . trim(strtolower($name_s));
@@ -32,8 +32,31 @@ class MYPLUGIN_post_type{
 
             add_action( 'init', array($this, 'initiate_cpt'), 0 );
 
-            add_action("pt_single" , array($this, 'single' ) );
-            add_action("pt_archive" , array($this, 'archive' ) );
+            if ( $default ){
+            //Single Actions
+                add_action("pt_single" , array("MYPLUGIN_pt_pcs",'pt_title') );
+                add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
+                add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_fi' ) );
+                add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_meta' ) );
+                add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_cats' ) );
+
+            //Archive Actions
+                add_action("pt_archive" , array("MYPLUGIN_pt_pcs",'pt_title_a'));
+                //add_action("pt_archive" , array("MYPLUGIN_pt_pcs",'pt_test') );
+
+                
+                //add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
+                //add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_fi' ) );
+                //add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_meta' ) );
+                //add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_cats' ) );
+
+            //Shortcode Actions
+                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs",'pt_title_a'),10,1);
+                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_content' ),10,1);
+                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_fi' ),10,1);
+                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_meta' ),10,1);
+                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_cats' ),10,1);
+            }
         }
 
     //Register Methods

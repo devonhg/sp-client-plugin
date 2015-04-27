@@ -19,7 +19,7 @@ class MYPLUGIN_pt_sc{
     //This shortcode runs and shows the archive of a 
     //given post type. 
     public function display_archive_f($atts){
-         extract( shortcode_atts( array(
+        /*extract( shortcode_atts( array(
             'wpargs' => '',
             'title' => true,
             'fi' => true, 
@@ -36,7 +36,32 @@ class MYPLUGIN_pt_sc{
             'isCats' => ($cats == 'true'), 
         );
 
-    	return MYPLUGIN_func::archive( $args , $wpargs , $this->pt); 
+    	return MYPLUGIN_func::archive( $args , $wpargs , $this->pt); */
+
+        extract( shortcode_atts( array(
+            'wpargs' => '', 
+            'pt' => '',
+        ), $atts ) );  
+
+        //global $post; 
+
+        if ( $wpargs == '' ){ $wpargs = 'post_type=' . $this->pt; } 
+
+        $out = "";
+
+        $quer = new WP_Query ( $wpargs );
+
+        while ( $quer->have_posts() ) : $quer->the_post();
+            ob_start();
+            do_action('pt_shortcode' , $quer );
+            $out .= ob_get_clean();
+        endwhile; 
+        wp_reset_postdata();
+
+        //return $out; 
+
+        return $out;
+
     }
 
     public function display_single_f($atts){
