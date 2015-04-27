@@ -43,8 +43,6 @@ class MYPLUGIN_pt_sc{
             'pt' => '',
         ), $atts ) );  
 
-        //global $post; 
-
         if ( $wpargs == '' ){ $wpargs = 'post_type=' . $this->pt; } 
 
         $out = "";
@@ -57,8 +55,6 @@ class MYPLUGIN_pt_sc{
             $out .= ob_get_clean();
         endwhile; 
         wp_reset_postdata();
-
-        //return $out; 
 
         return $out;
 

@@ -1,38 +1,6 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
-function dhg_debug( $entry , $value ){
-    $f = get_home_path() . "debug.txt"; 
-    if ( file_exists( $f ) ){
-        $fc = file_get_contents( $f );
-
-        //Convert string to associative array
-        $mstr = explode("|",$fc);
-        $a = array();
-        foreach($mstr as $nstr )
-        {   
-            if (strpos($nstr, '=') !== FALSE ){
-                $narr = explode("=",$nstr);
-                $narr[0] = trim( str_replace("\x98","",$narr[0]) );
-                $ytr[1] = trim( $narr[1] );
-                $a[$narr[0]] =$ytr[1];
-            }
-        }
-
-        $a[$entry] = $value;
-
-        //Convert back to string
-        $fo = http_build_query($a, '', '|'."\n");
-        
-        file_put_contents( $f , $fo );
-    }else{
-        file_put_contents( $f , $entry . '=' . $value . " | " );
-
-        
-    }
-}
-
-
 
 class MYPLUGIN_pt_meta {
 
@@ -47,19 +15,14 @@ class MYPLUGIN_pt_meta {
 	var $type;
 	var $options; 
 
-	//The color picker styles to enqeue if neccessary
-	/*public function wptuts_add_color_picker_s( $hook ) {
-        wp_enqueue_style( 'wp-color-picker' ); 
-        wp_enqueue_script( 'my-script-handle',  plugin_dir_url( __FILE__ ) . "colorpicker.js" , array( 'wp-color-picker' ), false, true );
-	}*/
-
-
 	/**
 	 * Hook into the appropriate actions when the class is constructed.
 	 */
-	public function __construct($title, $desc, $pt, $type = "text", $options = null) {
+	public function __construct($title, $desc, $pt, $hide = false , $type = "text", $options = null) {
 		if (is_admin()){
-			$this->id = "meta_" . trim(strtolower($title));
+			if ($hide){ $this->id = "h_meta_" . trim(strtolower($title)); }
+			else { $this->id = "meta_" . trim(strtolower($title)); }
+			
 			$this->title = $title;
 			$this->pt = $pt;
 			$this->desc = $desc; 
