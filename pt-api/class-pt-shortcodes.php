@@ -16,27 +16,7 @@ class MYPLUGIN_pt_sc{
         add_shortcode( $pt . '_single', array( $this, 'display_single_f'));
     }
     
-    //This shortcode runs and shows the archive of a 
-    //given post type. 
     public function display_archive_f($atts){
-        /*extract( shortcode_atts( array(
-            'wpargs' => '',
-            'title' => true,
-            'fi' => true, 
-            'meta' => true,
-            'content' => true,
-            'cats' => true,  
-        ), $atts ) );       
-
-        $args = array(
-            'isTitle' => ($title == 'true' ),
-            'isFI' => ($fi == 'true'),
-            'isMeta' => ($meta == 'true'),
-            'isContent' => ($content == 'true'),
-            'isCats' => ($cats == 'true'), 
-        );
-
-    	return MYPLUGIN_func::archive( $args , $wpargs , $this->pt); */
 
         extract( shortcode_atts( array(
             'wpargs' => '', 
@@ -60,28 +40,6 @@ class MYPLUGIN_pt_sc{
     }
 
     public function display_single_f($atts){
-
-        /*
-        extract( shortcode_atts( array(
-            'entry' => '',
-            'title' => true,
-            'fi' => true, 
-            'meta' => true,
-            'content' => true,
-            'cats' => true,  
-        ), $atts ) );
-
-        $args = array(
-            'isTitle' => ($title == 'true' ),
-            'isFI' => ($fi == 'true'),
-            'isMeta' => ($meta == 'true'),
-            'isContent' => ($content == 'true'),
-            'isCats' => ($cats == 'true'), 
-        );
-
-        return MYPLUGIN_func::single( false, $args , $this->pt, $entry );
-
-        */
 
         extract( shortcode_atts( array(
             'wpargs' => '', 

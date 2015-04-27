@@ -1,6 +1,8 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
+if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnails');
+
 //Include all files in directory
 	foreach (glob( plugin_dir_path( __FILE__ ) . "*." . "php" ) as $filename){
 		include_once( $filename );
@@ -18,5 +20,3 @@ if ( ! defined( 'WPINC' ) ) { die; }
 	function pt_shortcode(){
 		do_action('pt_shortcode');		
 	}
-
-//Post Pieces

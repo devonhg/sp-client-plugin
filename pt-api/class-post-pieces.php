@@ -8,10 +8,8 @@ if ( ! defined( 'WPINC' ) ) { die; }
 class MYPLUGIN_pt_pcs{
 
 	//General
-		public static function pt_test(){
-			echo "This is a test.";
-		}
 
+		//Title
 		public static function pt_title( $quer = null ){
 			if (!$quer == null){ $post = $quer; }
 			else{ global $post; }
@@ -22,6 +20,7 @@ class MYPLUGIN_pt_pcs{
 	    	echo $out; 
 		}
 
+		//Content
 		public static function pt_content( $quer = null ){
 			if (!$quer == null){ $post = $quer; }
 			else{ global $post; }
@@ -34,6 +33,7 @@ class MYPLUGIN_pt_pcs{
 			echo $out;
 		}
 
+		//Featured Image
 		public static function pt_fi( $quer = null ){
 			if (!$quer == null){ $post = $quer; }
 			else{ global $post; }
@@ -48,6 +48,7 @@ class MYPLUGIN_pt_pcs{
 			echo $out; 	
 		}
 
+		//Featured image, medium sized
 		public static function pt_fimed( $quer = null ){
 			if (!$quer == null){ $post = $quer; }
 			else{ global $post; }
@@ -62,6 +63,7 @@ class MYPLUGIN_pt_pcs{
 			echo $out; 	
 		}
 
+		//Output unhidden meta
 		public static function pt_meta( $quer = null ){
 			if (!$quer == null){ $post = $quer; }
 			else{ global $post; }
@@ -74,6 +76,7 @@ class MYPLUGIN_pt_pcs{
 		    echo $out; 	
 		}
 
+		//Output Categories
 		public static function pt_cats( $quer = null ){
 			if (!$quer == null){ $post = $quer; }
 			else{ global $post; }
@@ -89,7 +92,8 @@ class MYPLUGIN_pt_pcs{
 	    	echo $out; 	
 		}
 
-	//Archive
+	//Archive Versions
+		//Title hyperlinked
 		public static function pt_title_a( $quer = null ){
 			if (!$quer == null){ $post = $quer; }
 			else{ global $post; }

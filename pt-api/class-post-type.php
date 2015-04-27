@@ -1,41 +1,6 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
-if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnails');
-
-
-function dhg_debug( $entry , $value ){
-    $f = get_home_path() . "debug.txt"; 
-    if ( file_exists( $f ) ){
-        $fc = file_get_contents( $f );
-
-        //Convert string to associative array
-        $mstr = explode("|",$fc);
-        $a = array();
-        foreach($mstr as $nstr )
-        {   
-            if (strpos($nstr, '=') !== FALSE ){
-                $narr = explode("=",$nstr);
-                $narr[0] = trim( str_replace("\x98","",$narr[0]) );
-                $ytr[1] = trim( $narr[1] );
-                $a[$narr[0]] =$ytr[1];
-            }
-        }
-
-        $a[$entry] = $value;
-
-        //Convert back to string
-        $fo = http_build_query($a, '', '|'."\n");
-        
-        file_put_contents( $f , $fo );
-    }else{
-        file_put_contents( $f , $entry . '=' . $value . " | " );
-
-        
-    }
-}
-
-
 class MYPLUGIN_post_type{
 
     //Properties
