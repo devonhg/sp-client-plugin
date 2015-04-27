@@ -32,19 +32,11 @@ class MYPLUGIN_post_type{
 
             if ( $default ){
             //Single Actions
-                add_action("pt_single" , array("MYPLUGIN_pt_pcs",'pt_title') );
-                add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_fi' ) );
-                add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
-                add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_meta' ) );
-                add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_cats' ) );
+                $this->def_hooks_single();
             //Archive Actions
-                add_action("pt_archive" , array("MYPLUGIN_pt_pcs",'pt_title_a'));  
-                add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_fimed' ) );                         
-                add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
+                $this->def_hooks_archive();
             //Shortcode Actions
-                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs",'pt_title_a'),10,1);
-                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_fimed' ),10,1);
-                add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_content' ),10,1);
+                $this->def_hooks_shortcode();
             }
         }
 
@@ -75,6 +67,27 @@ class MYPLUGIN_post_type{
             if ( $post->post_type == $this->pt_slug ){
                 echo MYPLUGIN_func::single( false, $this->s_display , $this->pt_slug , $post->ID );
             }  
+        }
+
+    //Default hooks
+        public function def_hooks_single(){
+            add_action("pt_single" , array("MYPLUGIN_pt_pcs",'pt_title') );
+            add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_fi' ) );
+            add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
+            add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_meta' ) );
+            add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_cats' ) );            
+        }
+
+        public function def_hooks_archive(){
+            add_action("pt_archive" , array("MYPLUGIN_pt_pcs",'pt_title_a'));  
+            add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_fimed' ) );                         
+            add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
+        }
+
+        public function def_hooks_shortcode(){
+            add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs",'pt_title_a'),10,1);
+            add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_fimed' ),10,1);
+            add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_content' ),10,1);
         }
 
 
