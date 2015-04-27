@@ -40,7 +40,6 @@ class MYPLUGIN_pt_sc{
 
         extract( shortcode_atts( array(
             'wpargs' => '', 
-            'pt' => '',
         ), $atts ) );  
 
         if ( $wpargs == '' ){ $wpargs = 'post_type=' . $this->pt; } 
@@ -62,6 +61,7 @@ class MYPLUGIN_pt_sc{
 
     public function display_single_f($atts){
 
+        /*
         extract( shortcode_atts( array(
             'entry' => '',
             'title' => true,
@@ -80,6 +80,28 @@ class MYPLUGIN_pt_sc{
         );
 
         return MYPLUGIN_func::single( false, $args , $this->pt, $entry );
+
+        */
+
+        extract( shortcode_atts( array(
+            'wpargs' => '', 
+            'post' => 0,
+        ), $atts ) );  
+
+        if ( $wpargs == '' ){ $wpargs = 'post_type=' . $this->pt . "&p=" . $post; } 
+
+        $out = "";
+
+        $quer = new WP_Query ( $wpargs );
+
+        while ( $quer->have_posts() ) : $quer->the_post();
+            ob_start();
+            do_action('pt_shortcode' , $quer );
+            $out .= ob_get_clean();
+        endwhile; 
+        wp_reset_postdata();
+
+        return $out;
 
     }
 
