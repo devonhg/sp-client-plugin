@@ -14,20 +14,6 @@ class MYPLUGIN_post_type{
         var $name;
         var $name_s;
         var $pt_slug;
-        var $s_display = array(
-                'isTitle' => true,
-                'isFI' => true,
-                'isMeta' => true,
-                'isContent' => true,
-                'isCats' => true,
-            );  
-        var $a_display = array(
-                'isTitle' => true,
-                'isFI' => true,
-                'isMeta' => true,
-                'isContent' => true,
-                'isCats' => true,
-        );
     //Magic Methods
         public function __construct( $name , $name_s , $default = true ){
 
@@ -45,12 +31,6 @@ class MYPLUGIN_post_type{
                 $this->def_hooks_archive();
                 $this->def_hooks_shortcode();
             }
-        }
-
-        public function debug(){
-            global $post;
-
-            echo $post->post_type; 
         }
 
     //Register Methods
@@ -97,13 +77,13 @@ class MYPLUGIN_post_type{
     //Register Hooks
         public function reg_hooks_single(){
             foreach( $this->hooks_single as $hook ){
-                 add_action("pt_single" , $hook );
+                 add_action("MYPLUGIN_pt_single" , $hook );
             } 
         }
 
         public function reg_hooks_archive(){
             foreach( $this->hooks_archive as $hook ){
-                 add_action("pt_archive" , $hook );
+                 add_action("MYPLUGIN_pt_archive" , $hook );
             } 
         }
 
@@ -132,58 +112,22 @@ class MYPLUGIN_post_type{
             }          
         }   
 
-    //Output Medthods 
-        public function single(){
-
-            global $post; 
-
-            if ( $post->post_type == $this->pt_slug ){
-                echo MYPLUGIN_func::single( false, $this->s_display , $this->pt_slug , $post->ID );
-            }      
-        }
-
-        public function archive(){
-
-            global $post; 
-
-            if ( $post->post_type == $this->pt_slug ){
-                echo MYPLUGIN_func::single( false, $this->s_display , $this->pt_slug , $post->ID );
-            }  
-        }
-
     //Default hooks
         public function def_hooks_single(){
-            /*add_action("pt_single" , array("MYPLUGIN_pt_pcs",'pt_title') );
-            add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_fi' ) );
-            add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
-            add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_meta' ) );
-            add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_cats' ) );  */
-
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_title') );
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_fi') );
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_content') );
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_meta') );
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_cats') );
-
-            //$this->reg_hooks_single();
-
         }
 
         public function def_hooks_archive(){
-            /*add_action("pt_archive" , array("MYPLUGIN_pt_pcs",'pt_title_a'));  
-            add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_fimed' ) );                         
-            add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );*/
-
             $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pt_title_a') );
             $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pt_fimed') );
             $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pt_content') );
         }
 
         public function def_hooks_shortcode(){
-            /*add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs",'pt_title_a'),10,1);
-            add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_fimed' ),10,1);
-            add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_content' ),10,1);*/
-
             $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_title_a') );
             $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_fimed') );
             $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_content') );

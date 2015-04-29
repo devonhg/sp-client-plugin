@@ -85,7 +85,7 @@ class MYPLUGIN_pt_pcs{
 			$pt_values = get_object_taxonomies( get_post_type( $post->ID ) );
 	    	$out .= "<div class='" . "MYPLUGIN-categories" . "'>";
 		    	foreach($pt_values as $tax){
-		    		$out .= MYPLUGIN_func::MYPLUGIN_get_cats( $tax , $post->ID , $post->post_type );
+		    		$out .= MYPLUGIN_func::get_cats( $tax , $post->ID , $post->post_type );
 		    	}
 	    	$out .= "</div>";	
 
