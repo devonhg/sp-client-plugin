@@ -10,11 +10,43 @@ if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnail
 
 //Front end hooks
 	function pt_archive(){
-		do_action('pt_archive');
+		global $post;
+		$cl = null; 
+
+		foreach( MYPLUGIN_post_type::$instances as $instance ){
+			if ( $instance->pt_slug == $post->post_type ){
+				$cl = $instance;
+			}
+		}
+
+		if ( $cl !== null ){
+			remove_all_actions('pt_archive');
+			$cl->reg_hooks_single();
+
+			do_action('pt_archive');
+		}else{
+			echo "No posts for this post-type.";
+		}
 	}
 
 	function pt_single(){
-		do_action('pt_single');
+		global $post;
+		$cl = null; 
+
+		foreach( MYPLUGIN_post_type::$instances as $instance ){
+			if ( $instance->pt_slug == $post->post_type ){
+				$cl = $instance;
+			}
+		}
+
+		if ( $cl !== null ){
+			remove_all_actions('pt_single');
+			$cl->reg_hooks_single();
+
+			do_action('pt_single');
+		}else{
+			echo "No posts for this post-type.";
+		}
 	}
 
 	function pt_shortcode(){

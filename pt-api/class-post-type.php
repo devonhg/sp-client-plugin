@@ -4,6 +4,13 @@ if ( ! defined( 'WPINC' ) ) { die; }
 class MYPLUGIN_post_type{
 
     //Properties
+        //Instance Tracking
+        static $instances = array(); 
+
+        var $hooks_single = array(); 
+        var $hooks_archive = array(); 
+        var $hooks_sc = array(); 
+
         var $name;
         var $name_s;
         var $pt_slug;
@@ -23,6 +30,9 @@ class MYPLUGIN_post_type{
         );
     //Magic Methods
         public function __construct( $name , $name_s , $default = true ){
+
+            MYPLUGIN_post_type::$instances[] = $this; 
+
             $this->name = $name;
             $this->name_s = $name_s;
             $this->pt_slug = "pt_" . trim(strtolower($name_s));
@@ -31,13 +41,16 @@ class MYPLUGIN_post_type{
             add_action( 'init', array($this, 'initiate_cpt'), 0 );
 
             if ( $default ){
-            //Single Actions
                 $this->def_hooks_single();
-            //Archive Actions
                 $this->def_hooks_archive();
-            //Shortcode Actions
                 $this->def_hooks_shortcode();
             }
+        }
+
+        public function debug(){
+            global $post;
+
+            echo $post->post_type; 
         }
 
     //Register Methods
@@ -49,6 +62,75 @@ class MYPLUGIN_post_type{
             $a = new MYPLUGIN_pt_meta($title, $desc, $this->pt_slug , $hide , $typ, $options );
             return $a;
         }
+
+    //Add hooks
+        public function add_hook_single( $function = null ){
+            if (  $function == null ){
+                return $this->hooks_single; 
+            }else{
+                if ( gettype($function) == "string" || gettype($function) == "array" ){
+                    $this->hooks_single[] = $function; 
+                }
+            }
+        }
+
+        public function add_hook_archive( $function = null ){
+            if (  $function == null ){
+                return $this->hooks_archive; 
+            }else{
+                if ( gettype($function) == "string" || gettype($function) == "array" ){
+                    $this->hooks_archive[] = $function; 
+                }
+            }
+        }
+
+        public function add_hook_sc( $function = null ){
+            if (  $function == null ){
+                return $this->hooks_sc; 
+            }else{
+                if ( gettype($function) == "string" || gettype($function) == "array" ){
+                    $this->hooks_sc[] = $function; 
+                }
+            }
+        }
+
+    //Register Hooks
+        public function reg_hooks_single(){
+            foreach( $this->hooks_single as $hook ){
+                 add_action("pt_single" , $hook );
+            } 
+        }
+
+        public function reg_hooks_archive(){
+            foreach( $this->hooks_archive as $hook ){
+                 add_action("pt_archive" , $hook );
+            } 
+        }
+
+        public function reg_hooks_sc(){
+            foreach( $this->hooks_sc as $hook ){
+                 add_action("pt_shortcode" , $hook );
+            } 
+        }    
+
+    //Remove Hooks
+        public function remove_hook_single( $hook ){ 
+            if(($key = array_search($hook, $this->hooks_single )) !== false) {
+                unset( $this->hooks_single[$key]);
+            }          
+        }    
+
+        public function remove_hook_archive( $hook ){ 
+            if(($key = array_search($hook, $this->hooks_archive )) !== false) {
+                unset( $this->hooks_archive[$key]);
+            }          
+        }   
+
+        public function remove_hook_sc( $hook ){ 
+            if(($key = array_search($hook, $this->hooks_sc )) !== false) {
+                unset( $this->hooks_sc[$key]);
+            }          
+        }   
 
     //Output Medthods 
         public function single(){
@@ -71,17 +153,30 @@ class MYPLUGIN_post_type{
 
     //Default hooks
         public function def_hooks_single(){
-            add_action("pt_single" , array("MYPLUGIN_pt_pcs",'pt_title') );
+            /*add_action("pt_single" , array("MYPLUGIN_pt_pcs",'pt_title') );
             add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_fi' ) );
             add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
             add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_meta' ) );
-            add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_cats' ) );            
+            add_action("pt_single" , array("MYPLUGIN_pt_pcs", 'pt_cats' ) );  */
+
+            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_title') );
+            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_fi') );
+            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_content') );
+            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_meta') );
+            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_cats') );
+
+            //$this->reg_hooks_single();
+
         }
 
         public function def_hooks_archive(){
-            add_action("pt_archive" , array("MYPLUGIN_pt_pcs",'pt_title_a'));  
+            /*add_action("pt_archive" , array("MYPLUGIN_pt_pcs",'pt_title_a'));  
             add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_fimed' ) );                         
-            add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );
+            add_action("pt_archive" , array("MYPLUGIN_pt_pcs", 'pt_content' ) );*/
+
+            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pt_title_a') );
+            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pt_fimed') );
+            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pt_content') );
         }
 
         public function def_hooks_shortcode(){

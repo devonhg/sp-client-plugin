@@ -39,3 +39,13 @@ $pt_books->reg_meta('Price', 'The Cost of Item', true);
 $pt_books->reg_meta('Weight', 'The Weight of Item');
 $pt_books->reg_meta('Cover', 'The Cover Type', false ,  "radio", array("Hardcover", "Softcover"));
 $pt_books->reg_meta('Color', 'The Color', true , "color");
+
+$pt_dogs = new MYPLUGIN_post_type( "Doggies", "Dog" ); 
+
+$pt_dogs->reg_tax("Genres", "Genre" );
+$pt_dogs->reg_tax("Authors", "Author" );
+
+$pt_dogs->reg_meta('Price', 'The Cost of Item', true);
+$pt_dogs->reg_meta('Weight', 'The Weight of Item');
+$pt_dogs->reg_meta('Cover', 'The Cover Type', false ,  "radio", array("Hardcover", "Softcover"));
+$pt_dogs->reg_meta('Color', 'The Color', true , "color");
