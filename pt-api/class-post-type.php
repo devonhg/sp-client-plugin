@@ -76,21 +76,27 @@ class MYPLUGIN_post_type{
 
     //Register Hooks
         public function reg_hooks_single(){
+            add_action("MYPLUGIN_pt_single", array($this, "hook_article_start") );
             foreach( $this->hooks_single as $hook ){
                  add_action("MYPLUGIN_pt_single" , $hook );
             } 
+            add_action("MYPLUGIN_pt_single", array($this, "hook_article_end") );
         }
 
         public function reg_hooks_archive(){
+            add_action("MYPLUGIN_pt_archive", array($this, "hook_article_start") );
             foreach( $this->hooks_archive as $hook ){
                  add_action("MYPLUGIN_pt_archive" , $hook );
             } 
+            add_action("MYPLUGIN_pt_archive", array($this, "hook_article_end") );
         }
 
         public function reg_hooks_sc(){
+            add_action( $this->name_s . "pt_shortcode" , array($this, "hook_article_start") );
             foreach( $this->hooks_sc as $hook ){
                  add_action( $this->name_s . "pt_shortcode" , $hook, 10,1 );
             } 
+            add_action( $this->name_s . "pt_shortcode" , array($this, "hook_article_end") );
         }    
 
     //Remove Hooks
@@ -131,6 +137,15 @@ class MYPLUGIN_post_type{
             $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_title_a') );
             $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_fimed') );
             $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_content') );
+        }
+
+    //Special Hooks
+        public function hook_article_start(){
+            echo "<article>";
+        }
+
+        public function hook_article_end(){
+            echo "</article>";
         }
 
 
