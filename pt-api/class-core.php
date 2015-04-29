@@ -49,6 +49,8 @@ if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnail
 		}
 	}
 
+	/*
 	function pt_shortcode(){
 		do_action('pt_shortcode');		
 	}
+	*/

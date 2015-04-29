@@ -36,7 +36,7 @@ class MYPLUGIN_post_type{
             $this->name = $name;
             $this->name_s = $name_s;
             $this->pt_slug = "pt_" . trim(strtolower($name_s));
-            new MYPLUGIN_pt_sc($this->pt_slug);//Creates Shortcodes
+            new MYPLUGIN_pt_sc($this->pt_slug, $this );//Creates Shortcodes
 
             add_action( 'init', array($this, 'initiate_cpt'), 0 );
 
@@ -109,7 +109,7 @@ class MYPLUGIN_post_type{
 
         public function reg_hooks_sc(){
             foreach( $this->hooks_sc as $hook ){
-                 add_action("pt_shortcode" , $hook );
+                 add_action( $this->name_s . "pt_shortcode" , $hook, 10,1 );
             } 
         }    
 
@@ -180,9 +180,13 @@ class MYPLUGIN_post_type{
         }
 
         public function def_hooks_shortcode(){
-            add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs",'pt_title_a'),10,1);
+            /*add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs",'pt_title_a'),10,1);
             add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_fimed' ),10,1);
-            add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_content' ),10,1);
+            add_action("pt_shortcode" , array("MYPLUGIN_pt_pcs", 'pt_content' ),10,1);*/
+
+            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_title_a') );
+            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_fimed') );
+            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_content') );
         }
 
 
