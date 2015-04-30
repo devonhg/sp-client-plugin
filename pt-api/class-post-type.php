@@ -7,9 +7,9 @@ class MYPLUGIN_post_type{
         //Instance Tracking
         static $instances = array(); 
 
-        var $hooks_single = array(); 
-        var $hooks_archive = array(); 
-        var $hooks_sc = array(); 
+        private $hooks_single = array(); 
+        private $hooks_archive = array(); 
+        private $hooks_sc = array(); 
 
         var $name;
         var $name_s;
