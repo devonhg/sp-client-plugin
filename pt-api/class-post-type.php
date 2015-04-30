@@ -100,21 +100,33 @@ class MYPLUGIN_post_type{
         }    
 
     //Remove Hooks
-        public function remove_hook_single( $hook ){ 
-            if(($key = array_search($hook, $this->hooks_single )) !== false) {
-                unset( $this->hooks_single[$key]);
-            }          
+        public function remove_hook_single( $hook = null ){ 
+            if ( $hook != null ){
+                if(($key = array_search($hook, $this->hooks_single )) !== false) {
+                    unset( $this->hooks_single[$key]);
+                }          
+            }else{
+                $this->hooks_single = array(); 
+            }
         }    
 
-        public function remove_hook_archive( $hook ){ 
-            if(($key = array_search($hook, $this->hooks_archive )) !== false) {
-                unset( $this->hooks_archive[$key]);
-            }          
+        public function remove_hook_archive( $hook = null ){ 
+            if ( $hook != null ){
+                if(($key = array_search($hook, $this->hooks_archive )) !== false) {
+                    unset( $this->hooks_archive[$key]);
+                }   
+            }else{
+                $this->hooks_archive = array(); 
+            }      
         }   
 
         public function remove_hook_sc( $hook ){ 
-            if(($key = array_search($hook, $this->hooks_sc )) !== false) {
-                unset( $this->hooks_sc[$key]);
+            if ( $hook != null ){
+                if(($key = array_search($hook, $this->hooks_sc )) !== false) {
+                    unset( $this->hooks_sc[$key]);
+                }
+            }else{
+                 $this->hooks_sc = array(); 
             }          
         }   
 
