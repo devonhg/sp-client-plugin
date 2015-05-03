@@ -241,14 +241,6 @@ class MYPLUGIN_pt_meta {
 
         if ( $this->type == "media" ){
         	if ( $value == null ) { $value = ""; }; 
-        	/*
-        	        <p>
-            <label for="<?php echo $this->get_field_name( 'image_fade' ); ?>"><?php _e( 'Hover Image: The image it fades to when hovering.' ); ?></label>
-            <input name="<?php echo $this->get_field_name( 'image_fade' ); ?>" id="<?php echo $this->get_field_id( 'image_fade' ); ?>" class="widefat" type="text"  value="<?php echo esc_attr( $image_fade ); ?>" />
-            <input class="upload_image_button button button-primary" type="button" value="Upload Image" />
-        </p>
-        */
-
         	if ( $value !== ""){
         		echo "<div>";
         			echo "<img style='width:100px; height:auto' src='" . $value  . "'>";

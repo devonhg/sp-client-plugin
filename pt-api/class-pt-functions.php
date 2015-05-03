@@ -20,11 +20,25 @@ class MYPLUGIN_func{
 		$pst_meta = MYPLUGIN_pt_meta::$instances;
 		$out .= "<ul>";
 			foreach($pst_meta as $key){
-				if ( ($key->get_val( $ID ) != null && $key->get_val( $ID ) != "") && $key->pt == get_post_type( $ID ) && !( $key->hidden ) ){
+				if ( ($key->get_val( $ID ) != null && $key->get_val( $ID ) != "") && $key->pt == get_post_type( $ID ) && !( $key->hidden ) && $key->type !== "media" ){
 					$out .= "<li>";
 						$out .= "<label class='meta-key' >" . ucfirst( $key->title ) . "</label>";
 						$out .= ' : <label class="meta-value"> ' . $key->get_val() . '</label>';
 					$out .= "</li>";
+				}
+			} 
+		$out .= "</ul>";
+
+		return $out; 
+	}
+
+	public static function print_media( $ID ){
+		$out = "";
+		$pst_meta = MYPLUGIN_pt_meta::$instances;
+		$out .= "<ul class='media-list'>";
+			foreach($pst_meta as $key){
+				if ( $key->pt == get_post_type( $ID ) && !( $key->hidden ) && $key->type == "media" ){
+					$out .= "<img src='" . $key->get_val() . "'>";
 				}
 			} 
 		$out .= "</ul>";

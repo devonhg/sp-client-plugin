@@ -78,6 +78,21 @@ class MYPLUGIN_pt_pcs{
 		    echo $out; 	
 		}
 
+		//Output unhidden media
+		public static function pt_media( $quer = null ){
+			//if (!$quer == null){ $post = $quer; }
+			//else{ global $post; }
+			$id = MYPLUGIN_func::get_pieces_id( $quer );
+
+
+			$out = "";
+	   		$out .= "<div class='" . "MYPLUGIN-media" . "'>";
+			$out .= MYPLUGIN_func::print_media( $id );
+		    $out .= "</div>";
+
+		    echo $out; 	
+		}
+
 		//Output Categories
 		public static function pt_cats( $quer = null ){
 			if (!$quer == null){ $post = $quer; }
