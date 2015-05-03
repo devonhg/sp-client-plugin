@@ -7,6 +7,13 @@ if ( ! defined( 'WPINC' ) ) { die; }
 
 class MYPLUGIN_func{
 
+	public static function get_pieces_id( $quer = null ){
+		if (!$quer == null){ $post = $quer; }
+		else{ global $post; }	
+		
+		return $post->ID; 	
+	}
+
 	//This function retr
 	public static function print_meta( $ID ){
 		$out = "";

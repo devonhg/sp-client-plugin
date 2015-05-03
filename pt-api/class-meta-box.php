@@ -27,14 +27,11 @@ class MYPLUGIN_pt_meta {
 
 		MYPLUGIN_pt_meta::$instances[] = $this; 
 
-		//if (is_admin()){
+		//if (is_admin() && basename(__FILE__) == 'post.php' ){
 
 			$valName = str_replace(" " , "-" , trim(strtolower($title)));
 
 			$this->id = "meta_" . substr(strtolower($pt), 3) . "_" . $valName; 
-
-			//if ($hide){ $this->id = "0_meta_" . substr(strtolower($pt), 3) . $valName; }
-			//else { $this->id = "1_meta_" . substr(strtolower($pt), 3) . "_" . $valName; }
 
 			$this->title = $title; //Title String
 			$this->pt = $pt; //Post Type String
@@ -47,8 +44,6 @@ class MYPLUGIN_pt_meta {
 			$this->options = $options; 
 
 			$this->hidden = $hide; 
-
-			//$this->value =  //Get the value of the meta
 
 			$this->id_array = explode( "_" , $this->id );//This can be used for the checks on the meta ID. 
 
@@ -63,8 +58,12 @@ class MYPLUGIN_pt_meta {
     			add_action( "admin_enqueue_scripts", array( $this, "color_style_links" ) );
     		}
 
-		//}
-	}
+    		if ( $type == "media" ){
+    			add_action( "admin_enqueue_scripts", array( $this, "color_style_links" ) );
+    		}
+
+		}
+	//}
 
 	public function get_val( $ID = null ){
 		if (!$ID == null){ 
@@ -85,6 +84,10 @@ class MYPLUGIN_pt_meta {
 	public function color_style_f(){
 		wp_enqueue_style( 'wp-color-picker' ); 
 		wp_enqueue_script( 'cp-script', plugin_dir_url( __FILE__ ) . "colorpicker.js" , array( 'wp-color-picker' ), false, true );	
+	}
+
+	public function media_js(){
+		wp_enqueue_script( 'uploader-script', plugin_dir_url( __FILE__ ) . "uploader-script.js" );
 	}
 
 	public function color_style_links(){
@@ -168,7 +171,11 @@ class MYPLUGIN_pt_meta {
 		/* OK, its safe for us to save the data now. */
 
 		// Sanitize the user input.
-		$mydata = sanitize_text_field( $_POST[$this->new_field] );
+		if ( $this->type != "media" || $this->type != "link" ){
+			$mydata = sanitize_text_field( $_POST[$this->new_field] );
+		}else{
+			$mydata = esc_url( $_POST[$this->new_field] );
+		}
 
 		// Update the meta field.
 		update_post_meta( $post_id, $this->val_key, $mydata );
@@ -226,10 +233,30 @@ class MYPLUGIN_pt_meta {
 
         if ( $this->type == "link" ){
 
-        	if ( $value == "" ) { $value = ""; }; 
+        	if ( $value == null ) { $value = ""; }; 
 
 			echo '<input class="cmb_text_link" type="text" size="25" id="', $this->new_field , '" name="', $this->new_field, '" value="', esc_attr( $value ), '" />';
   			echo '<input class="cmb_link_button button" type="button" value="Get Link" />';
+        }
+
+        if ( $this->type == "media" ){
+        	if ( $value == null ) { $value = ""; }; 
+        	/*
+        	        <p>
+            <label for="<?php echo $this->get_field_name( 'image_fade' ); ?>"><?php _e( 'Hover Image: The image it fades to when hovering.' ); ?></label>
+            <input name="<?php echo $this->get_field_name( 'image_fade' ); ?>" id="<?php echo $this->get_field_id( 'image_fade' ); ?>" class="widefat" type="text"  value="<?php echo esc_attr( $image_fade ); ?>" />
+            <input class="upload_image_button button button-primary" type="button" value="Upload Image" />
+        </p>
+        */
+
+        	if ( $value !== ""){
+        		echo "<div>";
+        			echo "<img style='width:100px; height:auto' src='" . $value  . "'>";
+        		echo "</div>";
+        	}
+
+			echo "<input type='text' size='25' name=" . $this->new_field . " id=" . $this->new_field  . " value=" . $value . ">";
+			echo "<input class='upload_image_button button button-primary' type='button' value='Upload Media' >";
         }
 	}
 }

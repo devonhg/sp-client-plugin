@@ -3,6 +3,8 @@ if ( ! defined( 'WPINC' ) ) { die; }
 
 class MYPLUGIN_pt_tax{
 
+	static $instances = array(); 
+
     var $name;
     var $name_s;
     var $tax_slug;
@@ -14,6 +16,8 @@ class MYPLUGIN_pt_tax{
         $this->name_s = $name_s;
         $this->pt_slug = $pt_slug;
         $this->tax_slug = "tax_" . trim(strtolower($name_s)) . "_" . $pt_slug;
+
+        MYPLUGIN_pt_tax::$instances[] = $this; 
 
         add_action( 'init', array($this, 'initiate_cpt_tax'), 0 );
         add_action( 'plugins_loaded', array($this, 'plugins_action') );

@@ -67,3 +67,5 @@ $pt_books->reg_meta('Link', 'Add a Link!', false , "link");
 $pt_books->reg_meta('Another Link', 'Add a Link!', true , "link");
 
 $pt_books->reg_meta('Name', 'Add a name!');
+
+$pt_books->reg_meta('Media', 'Add some media!!', false, "media" );

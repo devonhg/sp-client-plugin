@@ -56,7 +56,7 @@ class MYPLUGIN_pt_pcs{
 			$out = "";
 	    	if ( has_post_thumbnail( $post->ID ) ){
 		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
-		    		$out .= "<a title='" . $post->post_title . "' href='" . get_permalink( $post->ID ) .  "' alt='" . $post->post_title . "'>" . get_the_post_thumbnail( $post->ID , "medium" ) . "</a>"; 
+		    		$out .= "<a title='" . get_the_title( $post->ID ) . "' href='" . get_permalink( $post->ID ) .  "' alt='" .  get_the_title( $post->ID ) . "'>" . get_the_post_thumbnail( $post->ID , "medium" ) . "</a>"; 
 		    	$out .= "</div>";
 			}		
 
@@ -65,12 +65,14 @@ class MYPLUGIN_pt_pcs{
 
 		//Output unhidden meta
 		public static function pt_meta( $quer = null ){
-			if (!$quer == null){ $post = $quer; }
-			else{ global $post; }
+			//if (!$quer == null){ $post = $quer; }
+			//else{ global $post; }
+			$id = MYPLUGIN_func::get_pieces_id( $quer );
+
 
 			$out = "";
 	   		$out .= "<div class='" . "MYPLUGIN-meta" . "'>";
-			$out .= MYPLUGIN_func::print_meta( $post->ID );
+			$out .= MYPLUGIN_func::print_meta( $id );
 		    $out .= "</div>";
 
 		    echo $out; 	
