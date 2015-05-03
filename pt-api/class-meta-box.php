@@ -4,6 +4,8 @@ if ( ! defined( 'WPINC' ) ) { die; }
 
 class MYPLUGIN_pt_meta {
 
+	static $instances = array(); 
+
 	var $id;
 	var $title;
 	var $pt;
@@ -15,12 +17,17 @@ class MYPLUGIN_pt_meta {
 	var $type;
 	var $options; 
 	var $id_array = array();
+	var $value; 
+	var $hidden; 
 
 	/**
 	 * Hook into the appropriate actions when the class is constructed.
 	 */
 	public function __construct($title, $desc, $pt, $hide = false , $type = "text", $options = null) {
-		if (is_admin()){
+
+		MYPLUGIN_pt_meta::$instances[] = $this; 
+
+		//if (is_admin()){
 
 			$valName = str_replace(" " , "-" , trim(strtolower($title)));
 
@@ -39,6 +46,10 @@ class MYPLUGIN_pt_meta {
 			$this->type = $type; 
 			$this->options = $options; 
 
+			$this->hidden = $hide; 
+
+			//$this->value =  //Get the value of the meta
+
 			$this->id_array = explode( "_" , $this->id );//This can be used for the checks on the meta ID. 
 
 			add_action( 'load-post.php', array( $this, 'call_mb' ) );
@@ -52,6 +63,22 @@ class MYPLUGIN_pt_meta {
     			add_action( "admin_enqueue_scripts", array( $this, "color_style_links" ) );
     		}
 
+		//}
+	}
+
+	public function get_val( $ID = null ){
+		if (!$ID == null){ 
+			$meta = get_post_custom( $ID );
+		}
+		else{ 
+			global $post; 
+			$meta = get_post_custom( $post->id );
+		} 
+
+		foreach( $meta as $key=>$val ){
+			if ( $key == $this->val_key ){
+				return implode( $val );
+			}
 		}
 	}
 
@@ -62,7 +89,6 @@ class MYPLUGIN_pt_meta {
 
 	public function color_style_links(){
 		wp_enqueue_script( 'wp-link' );
-		//wp_enqueue_script( 'link-script', plugin_dir_url( __FILE__ ) . "cmb.js" , array( 'wp-link' ), false, true );
 		wp_enqueue_script( 'link-script', plugin_dir_url( __FILE__ ) . "cmb.js" );
 	}
 
@@ -161,6 +187,7 @@ class MYPLUGIN_pt_meta {
 
 		// Use get_post_meta to retrieve an existing value from the database.
 		$value = get_post_meta( $post->ID, $this->val_key , true );
+		//$this->value = $value; 
 
 		// Display the form, using the current value.
 

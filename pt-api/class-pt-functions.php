@@ -7,30 +7,19 @@ if ( ! defined( 'WPINC' ) ) { die; }
 
 class MYPLUGIN_func{
 
+	//This function retr
 	public static function print_meta( $ID ){
 		$out = "";
-		$pst_meta = get_post_custom( $ID ); 
+		$pst_meta = MYPLUGIN_pt_meta::$instances;
 		$out .= "<ul>";
-			foreach($pst_meta as $key=>$val){
-				/*if (strpos($key,'_vkey') !== false && ( $key[0] !== "h" && $key[1] !== "_" ) ){
+			foreach($pst_meta as $key){
+				if ( ($key->get_val( $ID ) != null && $key->get_val( $ID ) != "") && $key->pt == get_post_type( $ID ) && !( $key->hidden ) ){
 					$out .= "<li>";
-						$out .= "<label>" . ucfirst(str_replace(array("meta_", "_vkey") , array("","") , $key)) . "</label>";
-						$out .= ' : ' . $val[0] . '<br/>';
+						$out .= "<label class='meta-key' >" . ucfirst( $key->title ) . "</label>";
+						$out .= ' : <label class="meta-value"> ' . $key->get_val() . '</label>';
 					$out .= "</li>";
-				}*/
-
-				$val_arr = explode( "_" , $key );
-
-				if ( $val_arr[0] == "meta" && $val[0] !== "" ){
-					$out .= "<li>";
-						$out .= "<label class='meta-key' >" . ucfirst( $val_arr[2] ) . "</label>";
-						$out .= ' : <label class="meta-value"> ' . $val[0] . '</label>';
-					$out .= "</li>";					
 				}
-
-				//var_dump( $val_arr );
 			} 
-		//var_dump($val_arr);
 		$out .= "</ul>";
 
 		return $out; 
