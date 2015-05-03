@@ -12,13 +12,25 @@ class MYPLUGIN_func{
 		$pst_meta = get_post_custom( $ID ); 
 		$out .= "<ul>";
 			foreach($pst_meta as $key=>$val){
-				if (strpos($key,'_vkey') !== false && ( $key[0] !== "h" && $key[1] !== "_" ) ){
+				/*if (strpos($key,'_vkey') !== false && ( $key[0] !== "h" && $key[1] !== "_" ) ){
 					$out .= "<li>";
 						$out .= "<label>" . ucfirst(str_replace(array("meta_", "_vkey") , array("","") , $key)) . "</label>";
 						$out .= ' : ' . $val[0] . '<br/>';
 					$out .= "</li>";
+				}*/
+
+				$val_arr = explode( "_" , $key );
+
+				if ( $val_arr[0] == "meta" && $val[0] !== "" ){
+					$out .= "<li>";
+						$out .= "<label class='meta-key' >" . ucfirst( $val_arr[2] ) . "</label>";
+						$out .= ' : <label class="meta-value"> ' . $val[0] . '</label>';
+					$out .= "</li>";					
 				}
+
+				//var_dump( $val_arr );
 			} 
+		//var_dump($val_arr);
 		$out .= "</ul>";
 
 		return $out; 

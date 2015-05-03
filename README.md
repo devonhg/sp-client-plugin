@@ -9,3 +9,9 @@ Do a search-replace accross all files in the pt-API directory and replace MYPLUG
 Once done, simply include the class-core.php file in the pt-api folder in your core plugin php file and you are good to go!
 
 For more information on the use of this plugin, which is mostly interacted with through the post_type class, refer to the wiki on this page. 
+
+##Current Problems
+
+* Multiple Link fields in meta all input to both. 
+* Need to set up way to hide some meta. 
+* Need to set up way to easily retrieve meta. 

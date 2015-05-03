@@ -14,24 +14,32 @@ class MYPLUGIN_pt_meta {
 	var $new_field;
 	var $type;
 	var $options; 
+	var $id_array = array();
 
 	/**
 	 * Hook into the appropriate actions when the class is constructed.
 	 */
 	public function __construct($title, $desc, $pt, $hide = false , $type = "text", $options = null) {
 		if (is_admin()){
-			if ($hide){ $this->id = "h_meta_" . trim(strtolower($title)); }
-			else { $this->id = "meta_" . trim(strtolower($title)); }
 
-			$this->title = $title;
-			$this->pt = $pt;
-			$this->desc = $desc; 
-			$this->val_key = $this->id . "_vkey";
+			$valName = str_replace(" " , "-" , trim(strtolower($title)));
+
+			$this->id = "meta_" . substr(strtolower($pt), 3) . "_" . $valName; 
+
+			//if ($hide){ $this->id = "0_meta_" . substr(strtolower($pt), 3) . $valName; }
+			//else { $this->id = "1_meta_" . substr(strtolower($pt), 3) . "_" . $valName; }
+
+			$this->title = $title; //Title String
+			$this->pt = $pt; //Post Type String
+			$this->desc = $desc; //Descrption String
+			$this->val_key = $this->id . "_vkey"; //Value Key for Instance Array
 			$this->met_nonce = $this->id . "_nonce";
 			$this->cust_box = $this->id . "_custom_box";
 			$this->new_field = $this->id . "_new_field";
 			$this->type = $type; 
 			$this->options = $options; 
+
+			$this->id_array = explode( "_" , $this->id );//This can be used for the checks on the meta ID. 
 
 			add_action( 'load-post.php', array( $this, 'call_mb' ) );
     		add_action( 'load-post-new.php', array( $this, 'call_mb' ) );
@@ -40,12 +48,22 @@ class MYPLUGIN_pt_meta {
     			add_action( "admin_enqueue_scripts", array( $this, "color_style_f" ) );
     		}
 
+    		if ( $type == "link" ){
+    			add_action( "admin_enqueue_scripts", array( $this, "color_style_links" ) );
+    		}
+
 		}
 	}
 
 	public function color_style_f(){
 		wp_enqueue_style( 'wp-color-picker' ); 
-		wp_enqueue_script( 'my-script-handle', plugin_dir_url( __FILE__ ) . "colorpicker.js" , array( 'wp-color-picker' ), false, true );	
+		wp_enqueue_script( 'cp-script', plugin_dir_url( __FILE__ ) . "colorpicker.js" , array( 'wp-color-picker' ), false, true );	
+	}
+
+	public function color_style_links(){
+		wp_enqueue_script( 'wp-link' );
+		//wp_enqueue_script( 'link-script', plugin_dir_url( __FILE__ ) . "cmb.js" , array( 'wp-link' ), false, true );
+		wp_enqueue_script( 'link-script', plugin_dir_url( __FILE__ ) . "cmb.js" );
 	}
 
 	//If the conditions clear for the construct function, 
@@ -179,5 +197,12 @@ class MYPLUGIN_pt_meta {
 	        echo ' value="' . esc_attr( $value ) . '" size="25" />';
         }
 
+        if ( $this->type == "link" ){
+
+        	if ( $value == "" ) { $value = ""; }; 
+
+			echo '<input class="cmb_text_link" type="text" size="25" id="', $this->new_field , '" name="', $this->new_field, '" value="', esc_attr( $value ), '" />';
+  			echo '<input class="cmb_link_button button" type="button" value="Get Link" />';
+        }
 	}
 }
