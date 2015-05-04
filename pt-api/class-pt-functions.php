@@ -64,7 +64,7 @@ class MYPLUGIN_func{
 			if ( strpos($link,'.mp4') !== false || strpos($link,'.m4v') !== false || strpos($link,'.mov') !== false || 
 					strpos($link,'.wmv') !== false || strpos($link,'.avi') !== false || strpos($link,'.mpg') !== false ||
 					strpos($link,'.ogv') !== false || strpos($link,'.3gp') !== false || strpos($link,'.3g2') !== false){
-				return "<video src='" . $link . "' controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "'> </video>";
+				return "<video style='max-width: 100%; height:auto' src='" . $link . "' controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "'> </video>";
 			}		
 	}
 
