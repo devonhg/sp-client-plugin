@@ -38,7 +38,17 @@ class MYPLUGIN_func{
 		$out .= "<ul class='media-list'>";
 			foreach($pst_meta as $key){
 				if ( $key->pt == get_post_type( $ID ) && !( $key->hidden ) && $key->type == "media" ){
-					$out .= "<img src='" . $key->get_val() . "'>";
+					$link = $key->get_val();
+					/*if ( strpos($link,'.jpeg') !== false || strpos($link,'.jpg') !== false ||  strpos($link,'.png') !== false || 
+							strpos($link,'.gif') || strpos($link,'.ico') || strpos($link,'.svg') ){
+						$out .= "<img src='" . $key->get_val() . "'>";
+					}
+					if ( strpos($link,'.mp4') !== false || strpos($link,'.m4v') !== false || strpos($link,'.mov') !== false || 
+							strpos($link,'.wmv') !== false || strpos($link,'.avi') !== false || strpos($link,'.mpg') !== false ||
+							strpos($link,'.ogv') !== false || strpos($link,'.3gp') !== false || strpos($link,'.3g2') !== false){
+						$out .= "<video controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "''> </video>";
+					}*/
+					$out .= MYPLUGIN_func::media_check( $link );
 				}
 			} 
 		$out .= "</ul>";
@@ -46,6 +56,17 @@ class MYPLUGIN_func{
 		return $out; 
 	}
 
+	public static function media_check( $link ){
+			if ( strpos($link,'.jpeg') !== false || strpos($link,'.jpg') !== false ||  strpos($link,'.png') !== false || 
+					strpos($link,'.gif') || strpos($link,'.ico') || strpos($link,'.svg') ){
+				return "<img src='" . $link . "'>";
+			}
+			if ( strpos($link,'.mp4') !== false || strpos($link,'.m4v') !== false || strpos($link,'.mov') !== false || 
+					strpos($link,'.wmv') !== false || strpos($link,'.avi') !== false || strpos($link,'.mpg') !== false ||
+					strpos($link,'.ogv') !== false || strpos($link,'.3gp') !== false || strpos($link,'.3g2') !== false){
+				return "<video src='" . $link . "' controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "'> </video>";
+			}		
+	}
 
 	// Function by David Paulsson, get ID from slug. Modified to also consider post type by Devon Godfrey.  
 	// MYPLUGIN_get_id_by_slug('any-page-slug');

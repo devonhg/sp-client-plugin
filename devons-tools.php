@@ -70,4 +70,6 @@ $pt_books->reg_meta('Another Link', 'Add a Link!', true , "link");
 
 $pt_books->reg_meta('Name', 'Add a name!');
 
-$pt_books->reg_meta('Media', 'Add some media!!', false, "media" );
+$pt_books->reg_meta('Video', 'Add some video!!', false, "media" );
+
+$pt_books->reg_meta('Picture', 'Add some pictures!!', false, "media" );

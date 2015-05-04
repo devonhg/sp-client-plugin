@@ -1,10 +1,17 @@
+//Media Uploader Javascript
 jQuery(document).ready(function($) {
     $(document).on("click", ".upload_image_button", function() {
 
         jQuery.data(document.body, 'prevElement', $(this).prev());
 
         window.send_to_editor = function(html) {
-            var imgurl = jQuery('img',html).attr('src');
+
+            if ( html.indexOf("img") > -1 ){
+                var imgurl = jQuery('img',html).attr('src');
+            }else{
+                var imgurl = $(html).attr('href');
+            }
+
             var inputText = jQuery.data(document.body, 'prevElement');
 
             if(inputText != undefined && inputText != '')

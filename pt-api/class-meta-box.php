@@ -59,7 +59,7 @@ class MYPLUGIN_pt_meta {
     		}
 
     		if ( $type == "media" ){
-    			add_action( "admin_enqueue_scripts", array( $this, "color_style_links" ) );
+    			add_action( "admin_enqueue_scripts", array( $this, "media_js" ) );
     		}
 
 		}
@@ -171,10 +171,10 @@ class MYPLUGIN_pt_meta {
 		/* OK, its safe for us to save the data now. */
 
 		// Sanitize the user input.
-		if ( $this->type != "media" || $this->type != "link" ){
-			$mydata = sanitize_text_field( $_POST[$this->new_field] );
+		if ( $this->type == "media" || $this->type == "link" ){
+			$mydata = esc_url( $_POST[$this->new_field] );			
 		}else{
-			$mydata = esc_url( $_POST[$this->new_field] );
+			$mydata = sanitize_text_field( $_POST[$this->new_field] );
 		}
 
 		// Update the meta field.
@@ -243,8 +243,9 @@ class MYPLUGIN_pt_meta {
         	if ( $value == null ) { $value = ""; }; 
         	if ( $value !== ""){
         		echo "<div>";
-        			echo "<img style='width:100px; height:auto' src='" . $value  . "'>";
-        		echo "</div>";
+	        			//echo "<img style='width:100px; height:auto' src='" . $value  . "'>";
+					echo MYPLUGIN_func::media_check( $value );
+				echo "</div>";
         	}
 
 			echo "<input type='text' size='25' name=" . $this->new_field . " id=" . $this->new_field  . " value=" . $value . ">";
