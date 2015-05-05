@@ -22,7 +22,7 @@ class MYPLUGIN_post_type{
 
             $this->name = $name;
             $this->name_s = $name_s;
-            $this->pt_slug = "pt_" . trim(strtolower($name_s));
+            $this->pt_slug = "pt_" . str_replace(" ", "_",trim(strtolower($name)));
             $this->classes = $classes;
             new MYPLUGIN_pt_sc($this->pt_slug, $this );//Creates Shortcodes
 

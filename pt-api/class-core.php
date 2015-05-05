@@ -21,11 +21,9 @@ if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnail
 
 		if ( $cl !== null ){
 			remove_all_actions('MYPLUGIN_pt_archive');
-			$cl->reg_hooks_single();
+			$cl->reg_hooks_archive();
 
 			$classes = get_post_class();
-
-
 
 			do_action('MYPLUGIN_pt_archive');
 
