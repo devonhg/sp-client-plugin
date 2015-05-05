@@ -80,10 +80,14 @@ class MYPLUGIN_pt_pcs{
 		public static function pc_meta( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );
 
-			$out = "";
-	   		$out .= "<div class='" . "MYPLUGIN-meta" . "'>";
-			$out .= MYPLUGIN_func::print_meta( $post->ID );
-		    $out .= "</div>";
+			$meta = MYPLUGIN_func::print_meta( $post->ID );
+
+			if ( strlen( $meta ) > 10 ){
+				$out = "";
+		   		$out .= "<div class='" . "MYPLUGIN-meta" . "'>";
+				$out .= $meta;
+			    $out .= "</div>";
+			}
 
 		    echo $out; 	
 		}
