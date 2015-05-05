@@ -14,14 +14,16 @@ class MYPLUGIN_post_type{
         var $name;
         var $name_s;
         var $pt_slug;
+        var $classes;
     //Magic Methods
-        public function __construct( $name , $name_s , $default = true ){
+        public function __construct( $name , $name_s , $default = true , $classes = "" ){
 
             MYPLUGIN_post_type::$instances[] = $this; 
 
             $this->name = $name;
             $this->name_s = $name_s;
             $this->pt_slug = "pt_" . trim(strtolower($name_s));
+            $this->classes = $classes;
             new MYPLUGIN_pt_sc($this->pt_slug, $this );//Creates Shortcodes
 
             add_action( 'init', array($this, 'initiate_cpt'), 0 );
@@ -152,8 +154,10 @@ class MYPLUGIN_post_type{
         }
 
     //Special Hooks
-        public function hook_article_start(){
-            echo "<article>";
+        public function hook_article_start( $quer = null ){
+            $post = MYPLUGIN_func::get_post( $quer );
+            $classes = implode( " ", get_post_class( "", $post->ID ) );
+            echo "<article class='" . $this->classes . " " . $classes . "'>";
         }
 
         public function hook_article_end(){
