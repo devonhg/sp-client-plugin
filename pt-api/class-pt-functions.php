@@ -7,11 +7,11 @@ if ( ! defined( 'WPINC' ) ) { die; }
 
 class MYPLUGIN_func{
 
-	public static function get_pieces_id( $quer = null ){
+	public static function get_post( $quer = null ){
 		if (!$quer == null){ $post = $quer; }
 		else{ global $post; }	
 		
-		return $post->ID; 	
+		return get_post($post->ID); 	
 	}
 
 	//This function retr
@@ -39,15 +39,6 @@ class MYPLUGIN_func{
 			foreach($pst_meta as $key){
 				if ( $key->pt == get_post_type( $ID ) && !( $key->hidden ) && $key->type == "media" ){
 					$link = $key->get_val();
-					/*if ( strpos($link,'.jpeg') !== false || strpos($link,'.jpg') !== false ||  strpos($link,'.png') !== false || 
-							strpos($link,'.gif') || strpos($link,'.ico') || strpos($link,'.svg') ){
-						$out .= "<img src='" . $key->get_val() . "'>";
-					}
-					if ( strpos($link,'.mp4') !== false || strpos($link,'.m4v') !== false || strpos($link,'.mov') !== false || 
-							strpos($link,'.wmv') !== false || strpos($link,'.avi') !== false || strpos($link,'.mpg') !== false ||
-							strpos($link,'.ogv') !== false || strpos($link,'.3gp') !== false || strpos($link,'.3g2') !== false){
-						$out .= "<video controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "''> </video>";
-					}*/
 					$out .= MYPLUGIN_func::media_check( $link );
 				}
 			} 
@@ -59,12 +50,12 @@ class MYPLUGIN_func{
 	public static function media_check( $link ){
 			if ( strpos($link,'.jpeg') !== false || strpos($link,'.jpg') !== false ||  strpos($link,'.png') !== false || 
 					strpos($link,'.gif') || strpos($link,'.ico') || strpos($link,'.svg') ){
-				return "<img src='" . $link . "'>";
+				return "<img class='media-element' style='max-width: 100%; height:auto' src='" . $link . "'>";
 			}
 			if ( strpos($link,'.mp4') !== false || strpos($link,'.m4v') !== false || strpos($link,'.mov') !== false || 
 					strpos($link,'.wmv') !== false || strpos($link,'.avi') !== false || strpos($link,'.mpg') !== false ||
 					strpos($link,'.ogv') !== false || strpos($link,'.3gp') !== false || strpos($link,'.3g2') !== false){
-				return "<video style='max-width: 100%; height:auto' src='" . $link . "' controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "'> </video>";
+				return "<video class='media-element' style='max-width: 100%; height:auto' src='" . $link . "' controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "'> </video>";
 			}		
 	}
 

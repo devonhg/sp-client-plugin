@@ -70,8 +70,6 @@ class MYPLUGIN_pt_sc{
         wp_reset_postdata();
 
         return $out;
-
     }
-
 }
 

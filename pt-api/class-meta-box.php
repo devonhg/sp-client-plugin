@@ -87,7 +87,7 @@ class MYPLUGIN_pt_meta {
 	}
 
 	public function media_js(){
-		wp_enqueue_script( 'uploader-script', plugin_dir_url( __FILE__ ) . "uploader-script.js" );
+		wp_enqueue_script( 'pt-uploader-script', plugin_dir_url( __FILE__ ) . "uploader-script.js" );
 	}
 
 	public function color_style_links(){
@@ -243,13 +243,12 @@ class MYPLUGIN_pt_meta {
         	if ( $value == null ) { $value = ""; }; 
         	if ( $value !== ""){
         		echo "<div>";
-	        			//echo "<img style='width:100px; height:auto' src='" . $value  . "'>";
 					echo MYPLUGIN_func::media_check( $value );
 				echo "</div>";
         	}
 
 			echo "<input type='text' size='25' name=" . $this->new_field . " id=" . $this->new_field  . " value=" . $value . ">";
-			echo "<input class='upload_image_button button button-primary' type='button' value='Upload Media' >";
+			echo "<input class='upload_image_button button' type='button' value='Upload Media' >";
         }
 	}
 }

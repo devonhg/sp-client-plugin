@@ -11,21 +11,21 @@ class MYPLUGIN_pt_pcs{
 
 		//Title
 		public static function pt_title( $quer = null ){
-			$id = MYPLUGIN_func::get_pieces_id( $quer );
+			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
-	    	$out .= "<h1>" . get_the_title( $id ) . "</h1>";
+	    	$out .= "<h1>" . $post->post_title . "</h1>";
 
 	    	echo $out; 
 		}
 
 		//Content
 		public static function pt_content( $quer = null ){
-			$id = MYPLUGIN_func::get_pieces_id( $quer );
+			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
 	   		$out .= "<div class='" . "MYPLUGIN-content" . "'>";
-		    			$out .= get_the_content( $id ); 
+		    			$out .= $post->post_content; 
 		    $out .= "</div>";
 		
 			echo $out;
@@ -33,12 +33,13 @@ class MYPLUGIN_pt_pcs{
 
 		//Featured Image
 		public static function pt_fi( $quer = null ){
-			$id = MYPLUGIN_func::get_pieces_id( $quer );
+			$post = MYPLUGIN_func::get_post( $quer );
+
 
 			$out = "";
-	    	if ( has_post_thumbnail( $id ) ){
+	    	if ( has_post_thumbnail( $post->ID ) ){
 		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
-		    		$out .= "<a title='" . get_the_title( $id ) . "' href='" . get_permalink( $id ) .  "' alt='" . get_the_title( $id ) . "'>" . get_the_post_thumbnail( $id ) . "</a>"; 
+		    		$out .= "<a title='" . $post->post_title . "' href='" . get_permalink( $post->ID ) .  "' alt='" . $post->post_title . "'>" . get_the_post_thumbnail( $post->ID ) . "</a>"; 
 		    	$out .= "</div>";
 			}		
 
@@ -47,12 +48,12 @@ class MYPLUGIN_pt_pcs{
 
 		//Featured image, medium sized
 		public static function pt_fimed( $quer = null ){
-			$id = MYPLUGIN_func::get_pieces_id( $quer );
+			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
-	    	if ( has_post_thumbnail( $id ) ){
+	    	if ( has_post_thumbnail( $post->ID ) ){
 		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
-		    		$out .= "<a title='" . get_the_title($id ) . "' href='" . get_permalink( $id ) .  "' alt='" .  get_the_title( $id ) . "'>" . get_the_post_thumbnail( $id , "medium" ) . "</a>"; 
+		    		$out .= "<a title='" . $post->post_title . "' href='" . get_permalink( $post->ID ) .  "' alt='" .  $post->post_title . "'>" . get_the_post_thumbnail( $post->ID , "medium" ) . "</a>"; 
 		    	$out .= "</div>";
 			}		
 
@@ -61,11 +62,11 @@ class MYPLUGIN_pt_pcs{
 
 		//Output unhidden meta
 		public static function pt_meta( $quer = null ){
-			$id = MYPLUGIN_func::get_pieces_id( $quer );
+			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
 	   		$out .= "<div class='" . "MYPLUGIN-meta" . "'>";
-			$out .= MYPLUGIN_func::print_meta( $id );
+			$out .= MYPLUGIN_func::print_meta( $post->ID );
 		    $out .= "</div>";
 
 		    echo $out; 	
@@ -73,11 +74,11 @@ class MYPLUGIN_pt_pcs{
 
 		//Output unhidden media
 		public static function pt_media( $quer = null ){
-			$id = MYPLUGIN_func::get_pieces_id( $quer );
+			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
 	   		$out .= "<div class='" . "MYPLUGIN-media" . "'>";
-			$out .= MYPLUGIN_func::print_media( $id );
+			$out .= MYPLUGIN_func::print_media( $post->ID );
 		    $out .= "</div>";
 
 		    echo $out; 	
@@ -85,13 +86,13 @@ class MYPLUGIN_pt_pcs{
 
 		//Output Categories
 		public static function pt_cats( $quer = null ){
-			$id = MYPLUGIN_func::get_pieces_id( $quer );
+			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
-			$pt_values = get_object_taxonomies( get_post_type( $id ) );
+			$pt_values = get_object_taxonomies( $post->post_type );
 	    	$out .= "<div class='" . "MYPLUGIN-categories" . "'>";
 		    	foreach($pt_values as $tax){
-		    		$out .= MYPLUGIN_func::get_cats( $tax , $id , get_post_type( $id ) );
+		    		$out .= MYPLUGIN_func::get_cats( $tax , $post->ID , $post->post_type );
 		    	}
 	    	$out .= "</div>";	
 
@@ -101,11 +102,11 @@ class MYPLUGIN_pt_pcs{
 	//Archive Versions
 		//Title hyperlinked
 		public static function pt_title_a( $quer = null ){
-			$id = MYPLUGIN_func::get_pieces_id( $quer );
+			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
-			$out .= "<a title='" . get_the_title( $id ) . "' href='" . get_permalink( $id ) .  "'>";
-	    		$out .= "<h1>" . get_the_title( $id ) . "</h1>";
+			$out .= "<a title='" . $post->post_title . "' href='" . get_permalink( $post->ID ) .  "'>";
+	    		$out .= "<h1>" . $post->post_title . "</h1>";
 	    	$out .= "</a>";
 
 	    	echo $out; 
