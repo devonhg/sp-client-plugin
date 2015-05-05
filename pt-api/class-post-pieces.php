@@ -10,7 +10,7 @@ class MYPLUGIN_pt_pcs{
 	//General
 
 		//Title
-		public static function pt_title( $quer = null ){
+		public static function pc_title( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
@@ -20,19 +20,35 @@ class MYPLUGIN_pt_pcs{
 		}
 
 		//Content
-		public static function pt_content( $quer = null ){
+		public static function pc_content( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
-	   		$out .= "<div class='" . "MYPLUGIN-content" . "'>";
+	   		$out .= "<div class=' MYPLUGIN-content '>";
 		    			$out .= $post->post_content; 
 		    $out .= "</div>";
 		
 			echo $out;
 		}
 
+		public static function pc_excerpt( $quer = null ){
+			$post = MYPLUGIN_func::get_post( $quer );
+
+			$out = "";
+	   		$out .= "<div class=' MYPLUGIN-excerpt '>";
+	   			if ( $post->post_excerpt ) {
+	   				$out .= $post->post_excerpt; 
+	   			}else{
+	   				$out .= $post->post_content; 
+	   			}
+		    			
+		    $out .= "</div>";
+		
+			echo $out;
+		}
+
 		//Featured Image
-		public static function pt_fi( $quer = null ){
+		public static function pc_fi( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );
 
 
@@ -47,7 +63,7 @@ class MYPLUGIN_pt_pcs{
 		}
 
 		//Featured image, medium sized
-		public static function pt_fimed( $quer = null ){
+		public static function pc_fimed( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
@@ -61,7 +77,7 @@ class MYPLUGIN_pt_pcs{
 		}
 
 		//Output unhidden meta
-		public static function pt_meta( $quer = null ){
+		public static function pc_meta( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
@@ -73,7 +89,7 @@ class MYPLUGIN_pt_pcs{
 		}
 
 		//Output unhidden media
-		public static function pt_media( $quer = null ){
+		public static function pc_media( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
@@ -85,13 +101,13 @@ class MYPLUGIN_pt_pcs{
 		}
 
 		//Output Categories
-		public static function pt_cats( $quer = null ){
+		public static function pc_cats( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";
-			$pt_values = get_object_taxonomies( $post->post_type );
+			$pc_values = get_object_taxonomies( $post->post_type );
 	    	$out .= "<div class='" . "MYPLUGIN-categories" . "'>";
-		    	foreach($pt_values as $tax){
+		    	foreach($pc_values as $tax){
 		    		$out .= MYPLUGIN_func::get_cats( $tax , $post->ID , $post->post_type );
 		    	}
 	    	$out .= "</div>";	
@@ -101,7 +117,7 @@ class MYPLUGIN_pt_pcs{
 
 	//Archive Versions
 		//Title hyperlinked
-		public static function pt_title_a( $quer = null ){
+		public static function pc_title_a( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );
 
 			$out = "";

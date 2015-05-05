@@ -134,23 +134,23 @@ class MYPLUGIN_post_type{
 
     //Default hooks
         public function def_hooks_single(){
-            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_title') );
-            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_fi') );
-            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_content') );
-            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_meta') );
-            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pt_cats') );
+            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_title') );
+            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_fi') );
+            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_content') );
+            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_meta') );
+            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_cats') );
         }
 
         public function def_hooks_archive(){
-            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pt_title_a') );
-            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pt_fimed') );
-            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pt_content') );
+            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_title_a') );
+            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_fimed') );
+            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_excerpt') );
         }
 
         public function def_hooks_shortcode(){
-            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_title_a') );
-            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_fimed') );
-            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pt_content') );
+            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pc_title_a') );
+            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pc_fimed') );
+            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pc_excerpt') );
         }
 
     //Special Hooks

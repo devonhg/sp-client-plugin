@@ -6,19 +6,19 @@ class MYPLUGIN_pt_meta {
 
 	static $instances = array(); 
 
-	var $id;
-	var $title;
-	var $pt;
-	var $desc;
-	var $val_key;
-	var $met_nonce;
-	var $cust_box;
-	var $new_field;
-	var $type;
-	var $options; 
-	var $id_array = array();
-	var $value; 
-	var $hidden; 
+	//Public Values
+		public $title;
+		public $pt;
+		public $type;
+		public $hidden;
+		public $options; 
+		public $desc;
+	//Private Values
+		private $val_key;
+		private $met_nonce;
+		private $cust_box;
+		private $new_field;		
+		private $id;
 
 	/**
 	 * Hook into the appropriate actions when the class is constructed.
@@ -45,7 +45,7 @@ class MYPLUGIN_pt_meta {
 
 			$this->hidden = $hide; 
 
-			$this->id_array = explode( "_" , $this->id );//This can be used for the checks on the meta ID. 
+			//$this->id_array = explode( "_" , $this->id );//This can be used for the checks on the meta ID. 
 
 			add_action( 'load-post.php', array( $this, 'call_mb' ) );
     		add_action( 'load-post-new.php', array( $this, 'call_mb' ) );
