@@ -14,8 +14,7 @@ class MYPLUGIN_pt_sc{
     	$this->pt = $pt;
         $this->par = $par; 
 
-        add_shortcode( $pt . '_archive', array( $this, 'display_archive_f'));
-        add_shortcode( $pt . '_single', array( $this, 'display_single_f'));
+        add_shortcode( $pt . '_sc', array( $this, 'display_archive_f'));
     }
 
     public static function action(){
@@ -28,13 +27,14 @@ class MYPLUGIN_pt_sc{
             'wpargs' => '', 
         ), $atts ) );  
 
-        if ( $wpargs == '' ){ $wpargs = 'post_type=' . $this->pt; } 
+        if ( $wpargs == '' ){ $argOut = 'post_type=' . $this->pt; } 
+        else { $argOut = 'post_type=' . $this->pt . "&" . $wpargs ; }
 
         $out = "";
 
         $this->par->reg_hooks_sc();
 
-        $quer = new WP_Query ( $wpargs );
+        $quer = new WP_Query ( $argOut );
 
         while ( $quer->have_posts() ) : $quer->the_post();
             ob_start();
@@ -46,32 +46,6 @@ class MYPLUGIN_pt_sc{
 
         return $out;
 
-    }
-
-    public function display_single_f($atts){
-
-        extract( shortcode_atts( array(
-            'wpargs' => '', 
-            'post' => 0,
-        ), $atts ) );  
-
-        if ( $wpargs == '' ){ $wpargs = 'post_type=' . $this->pt . "&p=" . $post; } 
-
-        $out = "";
-
-        $this->par->reg_hooks_sc();
-
-        $quer = new WP_Query ( $wpargs );
-
-        while ( $quer->have_posts() ) : $quer->the_post();
-            ob_start();
-            do_action( $this->par->name_s . 'pt_shortcode' , $quer );
-            $out .= ob_get_clean();
-        endwhile; 
-
-        wp_reset_postdata();
-
-        return $out;
     }
 }
 
