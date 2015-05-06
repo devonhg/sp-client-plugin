@@ -48,4 +48,3 @@ class MYPLUGIN_pt_sc{
 
     }
 }
-

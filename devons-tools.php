@@ -29,3 +29,8 @@ $pt_books = new MYPLUGIN_post_type( "Books", "Book" );
 $pt_books->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_media') );
 
 $pt_books->reg_meta('Price', 'The Cost of the Book', true);
+
+$pt_books->reg_meta('Color1', 'Color', true, 'color');
+$pt_books->reg_meta('Color2', 'Color2', true, 'color');
+
+$pt_books->reg_meta('Number', 'Input a Number', true, 'number');
