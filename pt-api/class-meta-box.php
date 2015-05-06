@@ -6,14 +6,14 @@ class MYPLUGIN_pt_meta {
 
 	static $instances = array(); 
 
-	//Public Values
+	//Public Properties
 		public $title;
 		public $pt;
 		public $type;
 		public $hidden;
 		public $options; 
 		public $desc;
-	//Private Values
+	//Private Properties
 		private $val_key;
 		private $met_nonce;
 		private $cust_box;

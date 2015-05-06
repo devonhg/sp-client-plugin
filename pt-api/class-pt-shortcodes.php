@@ -6,10 +6,9 @@ add_filter( 'widget_text', 'do_shortcode' );
 
 class MYPLUGIN_pt_sc{
     
-	var $pt;
-    var $par; 
+	public $pt;
+    public $par; 
 
-    //This is the method that actually applies the shortcodes. 
     public function __construct($pt, $par ){
     	$this->pt = $pt;
         $this->par = $par; 

@@ -1,14 +1,13 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
-/*
-	These are the basic hook functions for setting up the layout. 
-*/
+
+//These are the basic hook functions for setting up the layout. 
+
 
 class MYPLUGIN_pt_pcs{
 
 	//General
-
 		//Title
 		public static function pc_title( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );

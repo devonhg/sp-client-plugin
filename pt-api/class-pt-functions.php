@@ -1,12 +1,10 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
-/*
-	This is a static class that contains functions important to the plugin. 
-*/
 
-
+//This is a static class that contains functions important to the plugin. 
 class MYPLUGIN_func{
 
+	//This is the core function behind the hooks
 	public static function get_post( $quer = null ){
 		if (!$quer == null){ $post = $quer; }
 		else{ global $post; }	
@@ -14,7 +12,7 @@ class MYPLUGIN_func{
 		return get_post($post->ID); 	
 	}
 
-	//This function retr
+	//This is the function that prints the meta for any given post.
 	public static function print_meta( $ID ){
 		$out = "";
 		$pst_meta = MYPLUGIN_pt_meta::$instances;
@@ -32,6 +30,7 @@ class MYPLUGIN_func{
 		return $out; 
 	}
 
+	//Much like meta, only for media (images, video, etc.)
 	public static function print_media( $ID ){
 		$out = "";
 		$pst_meta = MYPLUGIN_pt_meta::$instances;
@@ -47,16 +46,17 @@ class MYPLUGIN_func{
 		return $out; 
 	}
 
+	//This function checks the media meta type, and modifies the output to match it. 
 	public static function media_check( $link ){
-			if ( strpos($link,'.jpeg') !== false || strpos($link,'.jpg') !== false ||  strpos($link,'.png') !== false || 
-					strpos($link,'.gif') || strpos($link,'.ico') || strpos($link,'.svg') ){
-				return "<img class='media-element' style='max-width: 100%; height:auto' src='" . $link . "'>";
-			}
-			if ( strpos($link,'.mp4') !== false || strpos($link,'.m4v') !== false || strpos($link,'.mov') !== false || 
-					strpos($link,'.wmv') !== false || strpos($link,'.avi') !== false || strpos($link,'.mpg') !== false ||
-					strpos($link,'.ogv') !== false || strpos($link,'.3gp') !== false || strpos($link,'.3g2') !== false){
-				return "<video class='media-element' style='max-width: 100%; height:auto' src='" . $link . "' controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "'> </video>";
-			}		
+		if ( strpos($link,'.jpeg') !== false || strpos($link,'.jpg') !== false ||  strpos($link,'.png') !== false || 
+				strpos($link,'.gif') || strpos($link,'.ico') || strpos($link,'.svg') ){
+			return "<img class='media-element' style='max-width: 100%; height:auto' src='" . $link . "'>";
+		}
+		if ( strpos($link,'.mp4') !== false || strpos($link,'.m4v') !== false || strpos($link,'.mov') !== false || 
+				strpos($link,'.wmv') !== false || strpos($link,'.avi') !== false || strpos($link,'.mpg') !== false ||
+				strpos($link,'.ogv') !== false || strpos($link,'.3gp') !== false || strpos($link,'.3g2') !== false){
+			return "<video class='media-element' style='max-width: 100%; height:auto' src='" . $link . "' controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "'> </video>";
+		}		
 	}
 
 	// Function by David Paulsson, get ID from slug. Modified to also consider post type by Devon Godfrey.  
@@ -70,8 +70,7 @@ class MYPLUGIN_func{
 		}
 	} 
 
-	//This is a helper function, used to gather the categories for
-	//a given post. 
+	//This is a helper function, used to gather the categories for a given post. 
 	public static function get_cats( $tax , $post_slug = null, $pt = null ){
 	    $output = "";
 	    $tax_terms = get_terms( $tax );
@@ -99,6 +98,7 @@ class MYPLUGIN_func{
 	    return $output;	
 	}
 
+	//This function checks if a page is currently running a post type created by this plugin. 
 	public static function is_pt(){
 		global $post; 
 
