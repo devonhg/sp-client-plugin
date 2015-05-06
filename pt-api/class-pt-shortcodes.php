@@ -41,6 +41,7 @@ class MYPLUGIN_pt_sc{
             do_action( $this->par->name_s . 'pt_shortcode' , $quer );
             $out .= ob_get_clean();
         endwhile; 
+
         wp_reset_postdata();
 
         return $out;
@@ -67,6 +68,7 @@ class MYPLUGIN_pt_sc{
             do_action( $this->par->name_s . 'pt_shortcode' , $quer );
             $out .= ob_get_clean();
         endwhile; 
+
         wp_reset_postdata();
 
         return $out;

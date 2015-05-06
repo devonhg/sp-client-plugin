@@ -122,7 +122,7 @@ class MYPLUGIN_post_type{
             }      
         }   
 
-        public function remove_hook_sc( $hook ){ 
+        public function remove_hook_sc( $hook = null ){ 
             if ( $hook != null ){
                 if(($key = array_search($hook, $this->hooks_sc )) !== false) {
                     unset( $this->hooks_sc[$key]);
@@ -143,13 +143,13 @@ class MYPLUGIN_post_type{
 
         public function def_hooks_archive(){
             $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_title_a') );
-            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_fimed') );
+            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_fimed_a') );
             $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_excerpt') );
         }
 
         public function def_hooks_shortcode(){
             $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pc_title_a') );
-            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pc_fimed') );
+            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pc_fimed_a') );
             $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pc_excerpt') );
         }
 
@@ -162,6 +162,14 @@ class MYPLUGIN_post_type{
 
         public function hook_article_end(){
             echo "</article>";
+        }
+
+        public function hook_div_start(){
+            echo "<div>";
+        }
+
+        public function hook_div_end(){
+            echo "</div>";
         }
 
 

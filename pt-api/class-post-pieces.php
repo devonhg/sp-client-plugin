@@ -55,7 +55,7 @@ class MYPLUGIN_pt_pcs{
 			$out = "";
 	    	if ( has_post_thumbnail( $post->ID ) ){
 		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
-		    		$out .= "<a title='" . $post->post_title . "' href='" . get_permalink( $post->ID ) .  "' alt='" . $post->post_title . "'>" . get_the_post_thumbnail( $post->ID ) . "</a>"; 
+		    		$out .= get_the_post_thumbnail( $post->ID ); 
 		    	$out .= "</div>";
 			}		
 
@@ -69,7 +69,7 @@ class MYPLUGIN_pt_pcs{
 			$out = "";
 	    	if ( has_post_thumbnail( $post->ID ) ){
 		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
-		    		$out .= "<a title='" . $post->post_title . "' href='" . get_permalink( $post->ID ) .  "' alt='" .  $post->post_title . "'>" . get_the_post_thumbnail( $post->ID , "medium" ) . "</a>"; 
+		    		$out .= get_the_post_thumbnail( $post->ID , "medium" ); 
 		    	$out .= "</div>";
 			}		
 
@@ -98,10 +98,15 @@ class MYPLUGIN_pt_pcs{
 		public static function pc_media( $quer = null ){
 			$post = MYPLUGIN_func::get_post( $quer );
 
+			$media = MYPLUGIN_func::print_media( $post->ID );
+
 			$out = "";
-	   		$out .= "<div class='" . "MYPLUGIN-media" . "'>";
-			$out .= MYPLUGIN_func::print_media( $post->ID );
-		    $out .= "</div>";
+
+			if ( strlen( $media ) > 29 ){
+		   		$out .= "<div class='" . "MYPLUGIN-media" . "'>";
+				$out .= $media;
+			    $out .= "</div>";
+			}
 
 		    echo $out; 	
 		}
@@ -144,5 +149,34 @@ class MYPLUGIN_pt_pcs{
 	    	$out .= "</a>";
 
 	    	echo $out; 
+		}
+
+		//Featured Image
+		public static function pc_fi_a( $quer = null ){
+			$post = MYPLUGIN_func::get_post( $quer );
+
+
+			$out = "";
+	    	if ( has_post_thumbnail( $post->ID ) ){
+		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
+		    		$out .= "<a title='" . $post->post_title . "' href='" . get_permalink( $post->ID ) .  "' alt='" . $post->post_title . "'>" . get_the_post_thumbnail( $post->ID ) . "</a>"; 
+		    	$out .= "</div>";
+			}		
+
+			echo $out; 	
+		}
+
+		//Featured image, medium sized
+		public static function pc_fimed_a( $quer = null ){
+			$post = MYPLUGIN_func::get_post( $quer );
+
+			$out = "";
+	    	if ( has_post_thumbnail( $post->ID ) ){
+		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
+		    		$out .= "<a title='" . $post->post_title . "' href='" . get_permalink( $post->ID ) .  "' alt='" .  $post->post_title . "'>" . get_the_post_thumbnail( $post->ID , "medium" ) . "</a>"; 
+		    	$out .= "</div>";
+			}		
+
+			echo $out; 	
 		}
 }
