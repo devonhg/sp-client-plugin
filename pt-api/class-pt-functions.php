@@ -98,4 +98,16 @@ class MYPLUGIN_func{
 
 	    return $output;	
 	}
+
+	public static function is_pt(){
+		global $post; 
+
+		foreach( MYPLUGIN_post_type::$instances as $instance ){
+			if ( $post->post_type == $instance->pt_slug ){
+				return true; 
+			}
+		}
+
+		return false; 
+	}
 }
