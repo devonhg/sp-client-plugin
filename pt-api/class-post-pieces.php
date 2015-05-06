@@ -82,8 +82,10 @@ class MYPLUGIN_pt_pcs{
 
 			$meta = MYPLUGIN_func::print_meta( $post->ID );
 
+			$out = "";
+
+			//Check if there is actually any content, if not don't output.
 			if ( strlen( $meta ) > 10 ){
-				$out = "";
 		   		$out .= "<div class='" . "MYPLUGIN-meta" . "'>";
 				$out .= $meta;
 			    $out .= "</div>";
@@ -110,11 +112,23 @@ class MYPLUGIN_pt_pcs{
 
 			$out = "";
 			$pc_values = get_object_taxonomies( $post->post_type );
-	    	$out .= "<div class='" . "MYPLUGIN-categories" . "'>";
-		    	foreach($pc_values as $tax){
-		    		$out .= MYPLUGIN_func::get_cats( $tax , $post->ID , $post->post_type );
-		    	}
-	    	$out .= "</div>";	
+
+			$has_terms = false; 
+
+			//Check if the post has any categories.
+			foreach( $pc_values as $tax ){
+				if ( get_the_terms( $post->ID, $tax ) ){
+					$has_terms = true; 
+				}
+			}
+
+			if ($has_terms){
+		    	$out .= "<div class='" . "MYPLUGIN-categories" . "'>";
+			    	foreach($pc_values as $tax){
+			    		$out .= MYPLUGIN_func::get_cats( $tax , $post->ID , $post->post_type );
+			    	}
+		    	$out .= "</div>";
+	    	}	
 
 	    	echo $out; 	
 		}
