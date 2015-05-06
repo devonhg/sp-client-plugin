@@ -12,4 +12,4 @@ For more information on the use of this plugin, which is mostly interacted with 
 
 ##Current Problems
 
-* Multiple Link fields in meta all input to both. 
+* None Documented
