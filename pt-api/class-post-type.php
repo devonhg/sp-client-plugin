@@ -3,36 +3,41 @@ if ( ! defined( 'WPINC' ) ) { die; }
 
 class MYPLUGIN_post_type{
 
-    //Properties
-        //Instance Tracking
+    //Public Properties
+        public $name;
+        public $name_s;
+        public $pt_slug;
+        public $classes;
         static $instances = array(); 
-
+        
+    //Private Properties
         private $hooks_single = array(); 
         private $hooks_archive = array(); 
         private $hooks_sc = array(); 
 
-        var $name;
-        var $name_s;
-        var $pt_slug;
-        var $classes;
+
     //Magic Methods
         public function __construct( $name , $name_s , $default = true , $classes = "" ){
 
-            MYPLUGIN_post_type::$instances[] = $this; 
+            //Set class values
+                MYPLUGIN_post_type::$instances[] = $this; 
+                $this->name = $name;
+                $this->name_s = $name_s;
+                $this->pt_slug = "pt_" . str_replace(" ", "_",trim(strtolower($name)));
+                $this->classes = $classes;
 
-            $this->name = $name;
-            $this->name_s = $name_s;
-            $this->pt_slug = "pt_" . str_replace(" ", "_",trim(strtolower($name)));
-            $this->classes = $classes;
-            new MYPLUGIN_pt_sc($this->pt_slug, $this );//Creates Shortcodes
+            //Generate Default Shortcode
+                $sc_desc = "This is the default shortcode automatically generated for " . $this->pt_slug;
+                $this->reg_sc( $this->pt_slug . "_sc", $sc_desc, "" );
+
+            //Run the default methods
+                if ( $default ){
+                    $this->def_hooks_single();
+                    $this->def_hooks_archive();
+                    $this->def_hooks_shortcode();
+                }
 
             add_action( 'init', array($this, 'initiate_cpt'), 0 );
-
-            if ( $default ){
-                $this->def_hooks_single();
-                $this->def_hooks_archive();
-                $this->def_hooks_shortcode();
-            }
         }
 
     //Register Methods
@@ -42,6 +47,10 @@ class MYPLUGIN_post_type{
         }
         public function reg_meta($title, $desc, $hide = false , $typ = "text", $options = null){
             $a = new MYPLUGIN_pt_meta($title, $desc, $this->pt_slug , $hide , $typ, $options );
+            return $a;
+        }
+        public function reg_sc($name, $desc, $query){
+            $a = new MYPLUGIN_pt_sc($this->pt_slug, $this, $name, $desc, $query);
             return $a;
         }
 

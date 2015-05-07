@@ -1,19 +1,22 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
-add_filter( 'widget_text', 'shortcode_unautop' );
-add_filter( 'widget_text', 'do_shortcode' );
-
 class MYPLUGIN_pt_sc{
     
 	public $pt;
     public $par; 
+    public $name;
+    public $desc;
+    public $query;
 
-    public function __construct($pt, $par ){
+    public function __construct($pt, $par, $name, $desc, $query = "" ){
     	$this->pt = $pt;
         $this->par = $par; 
+        $this->name = $name; 
+        $this->desc = $desc;
+        $this->query = $query; 
 
-        add_shortcode( $pt . '_sc', array( $this, 'display_archive_f'));
+        add_shortcode( $name , array( $this, 'display_archive_f'));
     }
 
     public static function action(){
@@ -22,12 +25,16 @@ class MYPLUGIN_pt_sc{
     
     public function display_archive_f($atts){
 
-        extract( shortcode_atts( array(
-            'wpargs' => '', 
-        ), $atts ) );  
-
-        if ( $wpargs == '' ){ $argOut = 'post_type=' . $this->pt; } 
-        else { $argOut = 'post_type=' . $this->pt . "&" . $wpargs ; }
+        if ( $this->query == '' ){ $argOut = 'post_type=' . $this->pt; } 
+        else { 
+            if ( gettype( $this->query ) == 'string' ){
+                $argOut = 'post_type=' . $this->pt . "&" . $this->query ; 
+            }else if ( gettype( $this->query ) == 'array' ){
+                $pt_set = array( 'post_type' => $this->pt );
+                $argOut = array_merge( $pt_set, $this->query );
+            }
+            
+        }
 
         $out = "";
 

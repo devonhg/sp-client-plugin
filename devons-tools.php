@@ -23,7 +23,13 @@ include_once('pt-api/class-core.php');
 
 $pt_books = new MYPLUGIN_post_type( "Books", "Book" ); 
 
-//$pt_books->reg_tax("Genres", "Genre" );
+$pt_books->reg_tax("Genres", "Genre" );
+
+$querarr = array(
+    "p" => 208,
+);
+
+$pt_books->reg_sc( "bookie_pt", "This is the bookie sc", $querarr );
 //$pt_books->reg_tax("Authors", "Author" );
 
 $pt_books->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_media') );
