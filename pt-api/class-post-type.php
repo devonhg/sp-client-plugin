@@ -27,7 +27,7 @@ class MYPLUGIN_post_type{
                 $this->classes = $classes;
 
             //Generate Default Shortcode
-                $sc_desc = "This is the default shortcode automatically generated for " . $this->pt_slug;
+                $sc_desc = "This is the default shortcode automatically generated for " . $this->name . ", simply lists all the posts for " . $this->name . ".";
                 $this->reg_sc( $this->pt_slug . "_sc", $sc_desc, "" );
 
             //Run the default methods

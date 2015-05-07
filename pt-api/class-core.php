@@ -51,3 +51,6 @@ if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnail
 			echo "No posts for this post-type.";
 		}
 	}
+
+//Create Admin Page
+    new MYPLUGIN_dash_page( "Post Types", "Post Type" );

@@ -3,6 +3,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
 
 class MYPLUGIN_pt_sc{
     
+    static $instances = array(); 
 	public $pt;
     public $par; 
     public $name;
@@ -10,13 +11,15 @@ class MYPLUGIN_pt_sc{
     public $query;
 
     public function __construct($pt, $par, $name, $desc, $query = "" ){
+    
+        MYPLUGIN_pt_sc::$instances[] = $this; 
     	$this->pt = $pt;
         $this->par = $par; 
         $this->name = $name; 
         $this->desc = $desc;
         $this->query = $query; 
 
-        add_shortcode( $name , array( $this, 'display_archive_f'));
+        add_shortcode( str_replace( " ", "_", $name ), array( $this, 'display_archive_f'));
     }
 
     public static function action(){

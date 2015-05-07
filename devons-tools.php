@@ -29,7 +29,7 @@ $querarr = array(
     "p" => 208,
 );
 
-$pt_books->reg_sc( "bookie_pt", "This is the bookie sc", $querarr );
+$pt_books->reg_sc( "bookie_pt", "This is the bookie shortcode, lists the one post with id value 208.", $querarr );
 //$pt_books->reg_tax("Authors", "Author" );
 
 $pt_books->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_media') );
