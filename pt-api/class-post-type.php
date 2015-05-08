@@ -89,7 +89,7 @@ class MYPLUGIN_post_type{
 
     //Register Hooks
         public function reg_hooks_single(){
-            add_action("MYPLUGIN_pt_single", array($this, "hook_article_start") );
+            add_action("MYPLUGIN_pt_single", array($this, "hook_article_start_single") );
             foreach( $this->hooks_single as $hook ){
                  add_action("MYPLUGIN_pt_single" , $hook );
             } 
@@ -97,7 +97,7 @@ class MYPLUGIN_post_type{
         }
 
         public function reg_hooks_archive(){
-            add_action("MYPLUGIN_pt_archive", array($this, "hook_article_start") );
+            add_action("MYPLUGIN_pt_archive", array($this, "hook_article_start_archive") );
             foreach( $this->hooks_archive as $hook ){
                  add_action("MYPLUGIN_pt_archive" , $hook );
             } 
@@ -105,7 +105,7 @@ class MYPLUGIN_post_type{
         }
 
         public function reg_hooks_sc(){
-            add_action( $this->name_s . "pt_shortcode" , array($this, "hook_article_start") );
+            add_action( $this->name_s . "pt_shortcode" , array($this, "hook_article_start_sc") );
             foreach( $this->hooks_sc as $hook ){
                  add_action( $this->name_s . "pt_shortcode" , $hook, 10,1 );
             } 
@@ -165,10 +165,22 @@ class MYPLUGIN_post_type{
         }
 
     //Special Hooks
-        public function hook_article_start( $quer = null ){
+        public function hook_article_start_single( $quer = null ){
             $post = MYPLUGIN_func::get_post( $quer );
             $classes = implode( " ", get_post_class( "", $post->ID ) );
-            echo "<article class='" . $this->classes . " " . $classes . "'>";
+            echo "<article class='" . $this->classes . " " . $classes . " ar_single'>";
+        }
+
+        public function hook_article_start_archive( $quer = null ){
+            $post = MYPLUGIN_func::get_post( $quer );
+            $classes = implode( " ", get_post_class( "", $post->ID ) );
+            echo "<article class='" . $this->classes . " " . $classes . " ar_archive'>";
+        }
+
+        public function hook_article_start_sc( $quer = null ){
+            $post = MYPLUGIN_func::get_post( $quer );
+            $classes = implode( " ", get_post_class( "", $post->ID ) );
+            echo "<article class='" . $this->classes . " " . $classes . " ar_shortcode'>";
         }
 
         public function hook_article_end(){
