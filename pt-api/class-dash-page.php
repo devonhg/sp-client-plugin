@@ -32,6 +32,10 @@ class MYPLUGIN_dash_page {
 
 		$out = "";
 
+		$out .= "<style>";
+			$out .= "#message{ display: none; }";
+		$out .= "</style>";
+
 		$out .= "<div class='wrap'>";
 			$out .= "<h1>Post-Types Information</h1>";
 
