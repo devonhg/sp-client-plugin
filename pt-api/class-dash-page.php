@@ -21,12 +21,16 @@ class MYPLUGIN_dash_page {
 
 	public function page_enqueue(){
 		add_menu_page( $this->name . " Info Page" , $this->name . " Info", 'read', $this->name_s . "_menu", array($this, 'page_function') , "", $this->menu_pos );
+		//add_submenu_page( "tools.php", $this->name . " Info Page" , $this->name . " Info", 'manage_options', $this->name_s . "_menu", array($this, 'page_function') );
 	}
 
 	public function page_function(){
+
+		if(!current_user_can('manage_options')){
+			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+		}
+
 		$out = "";
-
-
 
 		$out .= "<div class='wrap'>";
 			$out .= "<h1>Post-Types Information</h1>";
