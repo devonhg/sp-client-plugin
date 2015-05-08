@@ -40,3 +40,5 @@ $pt_books->reg_meta('Color1', 'Color', true, 'color');
 $pt_books->reg_meta('Color2', 'Color2', true, 'color');
 
 $pt_books->reg_meta('Number', 'Input a Number', true, 'number');
+
+$pt_movies = new MYPLUGIN_post_type( "Movies", "Movie", "This post-type is for movies." ); 

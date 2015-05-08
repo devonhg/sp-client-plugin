@@ -8,6 +8,7 @@ class MYPLUGIN_post_type{
         public $name_s;
         public $pt_slug;
         public $classes;
+        public $desc;
         static $instances = array(); 
         
     //Private Properties
@@ -17,13 +18,14 @@ class MYPLUGIN_post_type{
 
 
     //Magic Methods
-        public function __construct( $name , $name_s , $default = true , $classes = "" ){
+        public function __construct( $name , $name_s , $desc = "", $classes = "", $default = true ){
 
             //Set class values
                 MYPLUGIN_post_type::$instances[] = $this; 
                 $this->name = $name;
                 $this->name_s = $name_s;
                 $this->pt_slug = "pt_" . str_replace(" ", "_",trim(strtolower($name)));
+                $this->desc = $desc; 
                 $this->classes = $classes;
 
             //Generate Default Shortcode

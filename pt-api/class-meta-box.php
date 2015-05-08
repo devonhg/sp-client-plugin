@@ -13,8 +13,8 @@ class MYPLUGIN_pt_meta {
 		public $hidden;
 		public $options; 
 		public $desc;
+		public $val_key;
 	//Private Properties
-		private $val_key;
 		private $met_nonce;
 		private $cust_box;
 		private $new_field;		

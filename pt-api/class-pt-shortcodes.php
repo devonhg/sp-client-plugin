@@ -27,17 +27,21 @@ class MYPLUGIN_pt_sc{
     }
     
     public function display_archive_f($atts){
+        extract( shortcode_atts( array(
+            'wpargs' => '', 
+        ), $atts ) );  
 
-        if ( $this->query == '' ){ $argOut = 'post_type=' . $this->pt; } 
-        else { 
-            if ( gettype( $this->query ) == 'string' ){
-                $argOut = 'post_type=' . $this->pt . "&" . $this->query ; 
-            }else if ( gettype( $this->query ) == 'array' ){
-                $pt_set = array( 'post_type' => $this->pt );
-                $argOut = array_merge( $pt_set, $this->query );
+        if ($wpargs == ''){
+            if ( $this->query == '' ){ $argOut = 'post_type=' . $this->pt; } 
+            else { 
+                if ( gettype( $this->query ) == 'string' ){
+                    $argOut = 'post_type=' . $this->pt . "&" . $this->query ; 
+                }else if ( gettype( $this->query ) == 'array' ){
+                    $pt_set = array( 'post_type' => $this->pt );
+                    $argOut = array_merge( $pt_set, $this->query );
+                }                
             }
-            
-        }
+        }else{ $argOut = 'post_type=' . $this->pt . "&" . $wpargs; }
 
         $out = "";
 

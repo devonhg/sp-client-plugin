@@ -29,32 +29,56 @@ class MYPLUGIN_dash_page {
 
 
 		$out .= "<div class='wrap'>";
-			$out .= "<h1>Shortcodes</h1>";
+			$out .= "<h1>Post-Types Information</h1>";
 
-			$out .= "<p>These are the shortcodes generated for the custom post types.</p>";
-
-			$out .= "<hr>";
+			$out .= "<p>This is the informational page for the custom post-types on this site.</p>";
 
 			foreach( MYPLUGIN_post_type::$instances as $pt  ){
 
 				$out .= "<div style='padding: 25px' class='postbox'>";
-					$out .= "<h2>" . $pt->name . "</h2>";
+					//Title/Description Output
+						$out .= "<h1>" . $pt->name . "</h1>";
+						$out .= "<p>" . $pt->desc . "</p>";
 
-					$out .= "<hr>";
-
-					foreach ( MYPLUGIN_pt_sc::$instances as $sc ){
-						if ( $sc->par->name == $pt->name ){
-							$out .= "<div>";
-								$out .= "<h3>[" . $sc->name . "]</h3>";
-								$out .= "<p>" . $sc->desc . "</p>";
-							$out .= "</div>";
+					//Shortcodes Info Output
+						$out .= "<h2>Shortcodes</h2>";
+						$out .= "<hr>";
+						foreach ( MYPLUGIN_pt_sc::$instances as $sc ){
+							if ( $sc->par->name == $pt->name ){
+								$out .= "<div>";
+									$out .= "<h3>[" . $sc->name . "]</h3>";
+									$out .= "<p>" . $sc->desc . "</p>";
+								$out .= "</div>";
+							}
 						}
-					}
+
+					//Technical Info Output
+						$out .= "<h2>Technical Info</h2>";
+						$out .= "<hr>";
+
+						$out .= "Post-Type Slug: " . $pt->pt_slug;
+
+						$out .= "<h3>Meta</h3>";
+						$out .= "<ul>";
+							foreach( MYPLUGIN_pt_meta::$instances as $meta ){
+								if ($meta->pt == $pt->pt_slug){
+									$out .= "<li>" . $meta->title . " Key: " . $meta->val_key . "</li>";
+								}
+							}
+						$out .= "</ul>";
+
+						$out .= "<h3>Taxonomies</h3>";
+						$out .= "<ul>";
+							foreach( MYPLUGIN_pt_tax::$instances as $tax ){
+								if ($tax->pt_slug == $pt->pt_slug){
+									$out .= "<li>" . $tax->name . " Slug: " . $tax->tax_slug . "</li>";
+								}
+							}
+						$out .= "</ul>";
+
 				$out .= "</div>";
 			}
 		$out .= "</div>";
-
-		$out .= "<hr>";
 
 		$out .= "<sub>";
 			$out .= "These features were created using an API developed by <a target='_blank' href='http://www.dhgodfrey.net'>Devon Godfrey</a>, please show your appreciation by <a target='_blank' href='http://www.dhgodfrey.net'>visiting my website</a>.";
