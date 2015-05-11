@@ -29,41 +29,20 @@ class MYPLUGIN_pt_sc{
     public function display_archive_f($atts){
         extract( shortcode_atts( array(
             'wpargs' => '', 
-        ), $atts ) );  
+        ), $atts ) ); 
+        $out = ""; 
 
-        $sc_att = array(); 
-        if ( $wpargs !== '' ){
-            $sc_att = MYPLUGIN_func::asc_string_to_array( htmlspecialchars_decode($wpargs) );
-        }
-
-        //WTF?!?!
-        $base_att = array(
-                "post_type" => $this->pt,
-            );
-
-        $query_att = $this->query;
-
-        $argOut = array_merge( $sc_att, $base_att, $query_att );
-
-        var_dump( $base_att );
-        /*
-        var_dump( $sc_att );
-
-        if ($wpargs == ''){
-            if ( $this->query == '' ){ $argOut = 'post_type=' . $this->pt; } 
-            else { 
-                if ( gettype( $this->query ) == 'string' ){
-                    $argOut = 'post_type=' . $this->pt . "&" . $this->query ; 
-                }else if ( gettype( $this->query ) == 'array' ){
-                    $pt_set = array( 'post_type' => $this->pt );
-                    $argOut = array_merge( $pt_set, $this->query );
-                }                
+        //Set up Query Arrays
+            $sc_att = array(); 
+            if ( $wpargs !== '' ){
+                $sc_att = MYPLUGIN_func::asc_string_to_array( htmlspecialchars_decode($wpargs) );
             }
-        }else{ $argOut = 'post_type=' . $this->pt . "&" . $wpargs; }
-        */
 
+            $base_att = array( "post_type" => $this->pt );
 
-        $out = "";
+            $query_att = $this->query;
+
+            $argOut = array_merge( $sc_att, $base_att, $query_att );
 
         $this->par->reg_hooks_sc();
 

@@ -9,6 +9,7 @@ class MYPLUGIN_pt_tax{
     var $name_s;
     var $tax_slug;
     var $pt_slug; 
+    var $par;
 
     //Name, Name Singular, Slug, Post-type Slug to use. 
 	public function __construct($name, $name_s, $pt_slug){
@@ -18,6 +19,10 @@ class MYPLUGIN_pt_tax{
         $this->tax_slug = "tax_" . trim(strtolower($name_s)) . "_" . substr($pt_slug, 3);
 
         MYPLUGIN_pt_tax::$instances[] = $this; 
+
+        foreach( MYPLUGIN_post_type::$instances as $pt ){
+        	if ( $this->pt_slug =  )
+        }
 
         add_action( 'init', array($this, 'initiate_cpt_tax'), 0 );
         add_action( 'plugins_loaded', array($this, 'plugins_action') );
