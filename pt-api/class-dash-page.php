@@ -20,13 +20,18 @@ class MYPLUGIN_dash_page {
 	}
 
 	public function page_enqueue(){
-		add_menu_page( $this->name . " Info Page" , $this->name . " Info", 'read', $this->name_s . "_menu", array($this, 'page_function') , "", $this->menu_pos );
-		//add_submenu_page( "tools.php", $this->name . " Info Page" , $this->name . " Info", 'manage_options', $this->name_s . "_menu", array($this, 'page_function') );
+		add_menu_page( $this->name . " Info Page", 
+						$this->name . " Info", 
+						'read', 
+						$this->name_s . "_menu", 
+						array($this, 'page_function') , 
+						"", 
+						$this->menu_pos );
 	}
 
 	public function page_function(){
 
-		if(!current_user_can('manage_options')){
+		if(!current_user_can('read')){
 			wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
 		}
 
@@ -64,7 +69,11 @@ class MYPLUGIN_dash_page {
 						$out .= "<h2>Technical Info</h2>";
 						$out .= "<hr>";
 
-						$out .= "Post-Type Slug: " . $pt->pt_slug;
+						$out .= "<h3>Main Information</h3>";
+						$out .= "<ul>";
+							$out .= "<li>Post-Type Slug: " . $pt->pt_slug . "</li>";
+							$out .= "<li>Plugin Slug: " . "MYPLUGIN</li>";
+						$out .= "</ul>";
 
 						$out .= "<h3>Meta</h3>";
 						$out .= "<ul>";
@@ -89,7 +98,10 @@ class MYPLUGIN_dash_page {
 		$out .= "</div>";
 
 		$out .= "<sub>";
-			$out .= "These features were created using an API developed by <a target='_blank' href='http://www.dhgodfrey.net'>Devon Godfrey</a>, please show your appreciation by <a target='_blank' href='http://www.dhgodfrey.net'>visiting my website</a>.";
+			$out .= "These features were created using an API developed by 
+					<a target='_blank' href='http://www.dhgodfrey.net'>Devon Godfrey</a>, 
+					please show your appreciation by <a target='_blank' href='http://www.dhgodfrey.net'>visiting 
+					my website</a>.";
 		$out .= "</sub>";
 
 		echo $out; 

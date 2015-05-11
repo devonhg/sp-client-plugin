@@ -18,7 +18,11 @@ class MYPLUGIN_func{
 		$pst_meta = MYPLUGIN_pt_meta::$instances;
 		$out .= "<ul>";
 			foreach($pst_meta as $key){
-				if ( ($key->get_val( $ID ) != null && $key->get_val( $ID ) != "") && $key->pt == get_post_type( $ID ) && !( $key->hidden ) && $key->type !== "media" ){
+				if ( ($key->get_val( $ID ) != null && $key->get_val( $ID ) != "") && 
+				$key->pt == get_post_type( $ID ) && 
+				!( $key->hidden ) && 
+				$key->type !== "media" ){
+
 					$out .= "<li>";
 						$out .= "<label class='meta-key' >" . ucfirst( $key->title ) . "</label>";
 						$out .= ' : <label class="meta-value"> ' . $key->get_val() . '</label>';
@@ -55,7 +59,8 @@ class MYPLUGIN_func{
 		if ( strpos($link,'.mp4') !== false || strpos($link,'.m4v') !== false || strpos($link,'.mov') !== false || 
 				strpos($link,'.wmv') !== false || strpos($link,'.avi') !== false || strpos($link,'.mpg') !== false ||
 				strpos($link,'.ogv') !== false || strpos($link,'.3gp') !== false || strpos($link,'.3g2') !== false){
-			return "<video class='media-element' style='max-width: 100%; height:auto' src='" . $link . "' controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "'> </video>";
+			return "<video class='media-element' style='max-width: 100%; height:auto' src='" . $link . 
+					"' controls> <source type='video/" . substr( $link, -3 ) . "' src='" . $link . "'> </video>";
 		}		
 	}
 
@@ -89,7 +94,9 @@ class MYPLUGIN_func{
 
 	            foreach ($tax_terms as $tax_term){
 	            	if (has_term($tax_term, $tax, $pID)){
-	                	$output .= '<li>' . '<a href="' . esc_attr(get_term_link($tax_term, $tax)) . '" title="' . sprintf( __( "View all items in %s" ), $tax_term->name ) . '" ' . '>' . $tax_term->name.'</a></li>';
+	                	$output .= '<li>' . '<a href="' . esc_attr(get_term_link($tax_term, $tax)) . '" title="' . 
+	                		sprintf( __( "View all items in %s" ), $tax_term->name ) . '" ' . '>' . $tax_term->name . 
+	                		'</a></li>';
 	            	}
 	            }
 	        $output .= "</ul>"; 

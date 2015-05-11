@@ -80,7 +80,11 @@ class MYPLUGIN_pt_meta {
 	//Enqueuing Functions
 		public function color_style_f(){
 			wp_enqueue_style( 'wp-color-picker' ); 
-			wp_enqueue_script( 'cp-script', plugin_dir_url( __FILE__ ) . "colorpicker.js" , array( 'wp-color-picker' ), false, true );	
+			wp_enqueue_script( 'cp-script', 
+								plugin_dir_url( __FILE__ ) . "colorpicker.js" , 
+								array( 'wp-color-picker' ), 
+								false, 
+								true );	
 		}
 
 		public function media_js(){
@@ -209,7 +213,9 @@ class MYPLUGIN_pt_meta {
 
 	        	if ( $value == "" ) { $value = ""; }; 
 
-				echo '<input type="text" class="my-color-field" id="' . $this->new_field . '" name="' . $this->new_field . '"';
+				echo '<input type="text" class="my-color-field" id="' . $this->new_field .
+					'" name="' . $this->new_field . '"';
+
 		        echo ' value="' . esc_attr( $value ) . '" size="25" />';
 	        }
 
@@ -217,7 +223,9 @@ class MYPLUGIN_pt_meta {
 
 	        	if ( $value == null ) { $value = ""; }; 
 
-				echo '<input class="cmb_text_link" type="text" size="25" id="', $this->new_field , '" name="', $this->new_field, '" value="', esc_attr( $value ), '" />';
+				echo '<input class="cmb_text_link" type="text" size="25" id="' . $this->new_field . 
+					'" name="' . $this->new_field . '" value="' . esc_attr( $value ) . '" />';
+
 	  			echo '<input class="cmb_link_button button" type="button" value="Get Link" />';
 	        }
 
@@ -229,7 +237,9 @@ class MYPLUGIN_pt_meta {
 					echo "</div>";
 	        	}
 
-				echo "<input type='text' size='25' name=" . $this->new_field . " id=" . $this->new_field  . " value=" . $value . ">";
+				echo "<input type='text' size='25' name=" . $this->new_field . " id=" . $this->new_field  . 
+					" value=" . $value . ">";
+					
 				echo "<input class='upload_image_button button' type='button' value='Upload Media' >";
 	        }
 		}
