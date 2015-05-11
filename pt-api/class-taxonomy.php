@@ -15,7 +15,7 @@ class MYPLUGIN_pt_tax{
         $this->name = $name;
         $this->name_s = $name_s;
         $this->pt_slug = $pt_slug;
-        $this->tax_slug = "tax_" . trim(strtolower($name_s)) . "_" . $pt_slug;
+        $this->tax_slug = "tax_" . trim(strtolower($name_s)) . "_" . substr($pt_slug, 3);
 
         MYPLUGIN_pt_tax::$instances[] = $this; 
 

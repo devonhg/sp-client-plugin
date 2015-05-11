@@ -105,6 +105,19 @@ class MYPLUGIN_func{
 	    return $output;	
 	}
 
+	public static function asc_string_to_array( $string ){
+		if ( $string != "" && $string != null && is_string( $string ) ){
+			$a = explode( "&", $string );
+			$arr = array(); 
+
+			foreach($a as $res){
+				$b = explode("=", $res);
+				$arr[$b[0]] = $b[1]; 
+			}
+			return $arr;
+		}else return array(); 
+	}
+
 	//This function checks if a page is currently running a post type created by this plugin. 
 	public static function is_pt(){
 		global $post; 

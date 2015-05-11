@@ -38,7 +38,7 @@ class MYPLUGIN_dash_page {
 		$out = "";
 
 		$out .= "<style>";
-			$out .= "#message{ display: none; }";
+			$out .= "#message, .updated, .notice, .error, .update-nag{ display: none; }";
 		$out .= "</style>";
 
 		$out .= "<div class='wrap'>";

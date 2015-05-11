@@ -17,7 +17,7 @@ class MYPLUGIN_pt_sc{
         $this->par = $par; 
         $this->name = $name; 
         $this->desc = $desc;
-        $this->query = $query; 
+        $this->query = MYPLUGIN_func::asc_string_to_array( $query ); 
 
         add_shortcode( str_replace( " ", "_", $name ), array( $this, 'display_archive_f'));
     }
@@ -31,6 +31,24 @@ class MYPLUGIN_pt_sc{
             'wpargs' => '', 
         ), $atts ) );  
 
+        $sc_att = array(); 
+        if ( $wpargs !== '' ){
+            $sc_att = MYPLUGIN_func::asc_string_to_array( htmlspecialchars_decode($wpargs) );
+        }
+
+        //WTF?!?!
+        $base_att = array(
+                "post_type" => $this->pt,
+            );
+
+        $query_att = $this->query;
+
+        $argOut = array_merge( $sc_att, $base_att, $query_att );
+
+        var_dump( $base_att );
+        /*
+        var_dump( $sc_att );
+
         if ($wpargs == ''){
             if ( $this->query == '' ){ $argOut = 'post_type=' . $this->pt; } 
             else { 
@@ -42,6 +60,8 @@ class MYPLUGIN_pt_sc{
                 }                
             }
         }else{ $argOut = 'post_type=' . $this->pt . "&" . $wpargs; }
+        */
+
 
         $out = "";
 
