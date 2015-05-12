@@ -107,13 +107,28 @@ class MYPLUGIN_func{
 
 	public static function asc_string_to_array( $string ){
 		if ( $string != "" && $string != null && is_string( $string ) ){
+			$string = str_replace(" ", "", $string );
 			$a = explode( "&", $string );
 			$arr = array(); 
+			$subArr = array(); 
 
 			foreach($a as $res){
-				$b = explode("=", $res);
-				$arr[$b[0]] = $b[1]; 
+				if (strpos($res,',') !== false) {
+					$b = explode(",", $res);
+					$d = array(); 
+
+					foreach( $b as $sres ){
+						$c = explode("=", $sres);
+						$d[$c[0]] = $c[1];
+					}
+					$subArr[] = $d; 
+				}else{
+					$b = explode("=", $res);
+					$arr[$b[0]] = $b[1]; 					
+				}
 			}
+			foreach( $subArr as $sub ){ $arr[] = $sub; }
+
 			return $arr;
 		}else return array(); 
 	}

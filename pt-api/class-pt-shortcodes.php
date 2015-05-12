@@ -38,8 +38,8 @@ class MYPLUGIN_pt_sc{
                 $sc_att = MYPLUGIN_func::asc_string_to_array( htmlspecialchars_decode($wpargs) );
             }
 
+            $sc_att = MYPLUGIN_func::asc_string_to_array( htmlspecialchars_decode($wpargs) );
             $base_att = array( "post_type" => $this->pt );
-
             $query_att = $this->query;
 
             $argOut = array_merge( $sc_att, $base_att, $query_att );
@@ -47,16 +47,13 @@ class MYPLUGIN_pt_sc{
         $this->par->reg_hooks_sc();
 
         $quer = new WP_Query ( $argOut );
-
-        while ( $quer->have_posts() ) : $quer->the_post();
-            ob_start();
-            do_action( $this->par->name_s . 'pt_shortcode' , $quer );
-            $out .= ob_get_clean();
-        endwhile; 
-
+            while ( $quer->have_posts() ) : $quer->the_post();
+                ob_start();
+                do_action( $this->par->name_s . 'pt_shortcode' , $quer );
+                $out .= ob_get_clean();
+            endwhile; 
         wp_reset_postdata();
-
+        
         return $out;
-
     }
 }

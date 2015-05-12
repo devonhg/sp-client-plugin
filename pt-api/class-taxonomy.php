@@ -20,10 +20,6 @@ class MYPLUGIN_pt_tax{
 
         MYPLUGIN_pt_tax::$instances[] = $this; 
 
-        foreach( MYPLUGIN_post_type::$instances as $pt ){
-        	if ( $this->pt_slug =  )
-        }
-
         add_action( 'init', array($this, 'initiate_cpt_tax'), 0 );
         add_action( 'plugins_loaded', array($this, 'plugins_action') );
     }
