@@ -37,7 +37,7 @@ class MYPLUGIN_pt_tax{
         	),
         );
 
-        $this->par->reg_sc( str_replace( "tax_", "", $this->tax_slug ) . "_sc", "This is the shortcode automatically generated for " . $this->name . ". Modify the 'cat' attribute to set the category.", $sc_array );
+        $this->par->reg_sc( str_replace( "tax_", "", $this->tax_slug ) . "_sc", "This is the shortcode automatically generated for " . $this->name . ". Modify the 'cat' attribute to set the category/categories.", $sc_array );
 
         add_action( 'init', array($this, 'initiate_cpt_tax'), 0 );
         add_action( 'plugins_loaded', array($this, 'plugins_action') );

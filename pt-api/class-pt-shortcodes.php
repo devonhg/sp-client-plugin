@@ -32,19 +32,18 @@ class MYPLUGIN_pt_sc{
             'cats' => '',
         ), $atts ) ); 
         $out = ""; 
+        $parse = array();
 
         //Set up Query Arrays
             $query_att = $this->query;
             $sc_att = MYPLUGIN_func::asc_string_to_array( htmlspecialchars_decode($wpargs) );
             $base_att = array( "post_type" => $this->pt );
 
-
             if ( $cats !== '' && isset( $query_att['tax_query'] ) ){
                 $query_att['tax_query'][0]['terms'] = explode( ",", $cats); 
-                $argOut = array_merge( $sc_att, $base_att, $query_att );
-            }else{
-                $argOut = array_merge( $sc_att, $base_att, $query_att );
             }
+
+            $argOut = array_merge( $sc_att, $base_att, $query_att );
 
         $this->par->reg_hooks_sc();
         
