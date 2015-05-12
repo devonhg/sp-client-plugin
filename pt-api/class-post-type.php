@@ -34,7 +34,7 @@ class MYPLUGIN_post_type{
                 $sc_desc = "This is the default shortcode automatically generated for " . 
                     $this->name . ", simply lists all the posts for " . $this->name . ".";
                     
-                $this->reg_sc( $this->pt_slug . "_sc", $sc_desc, "" );
+                $this->reg_sc( $this->pt_slug . "_sc", $sc_desc );
 
             //Run the default methods
                 if ( $default ){
@@ -55,7 +55,7 @@ class MYPLUGIN_post_type{
             $a = new MYPLUGIN_pt_meta($title, $desc, $this->pt_slug , $hide , $typ, $options );
             return $a;
         }
-        public function reg_sc($name, $desc, $query){
+        public function reg_sc($name, $desc, $query = array() ){
             $a = new MYPLUGIN_pt_sc($this->pt_slug, $this, $name, $desc, $query);
             return $a;
         }

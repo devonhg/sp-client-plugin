@@ -108,29 +108,67 @@ class MYPLUGIN_func{
 	public static function asc_string_to_array( $string ){
 		if ( $string != "" && $string != null && is_string( $string ) ){
 			$string = str_replace(" ", "", $string );
-			$a = explode( "&", $string );
+			$string = str_replace("'", "", $string );
+			$string = str_replace('"', "", $string );
+			
 			$arr = array(); 
-			$subArr = array(); 
-
-			foreach($a as $res){
-				if (strpos($res,',') !== false) {
-					$b = explode(",", $res);
-					$d = array(); 
-
-					foreach( $b as $sres ){
-						$c = explode("=", $sres);
-						$d[$c[0]] = $c[1];
-					}
-					$subArr[] = $d; 
-				}else{
-					$b = explode("=", $res);
-					$arr[$b[0]] = $b[1]; 					
+			$and = explode( "&", $string );
+			foreach( $and as $a ){
+				//If the entry contains ":", its a keyed array
+				if (strpos($a,':') !== false ) {
+					//Break key from first value
+						$keyArr = explode( ":", $a );
+					//Break out each key of assoc. array. 
+						$assArr = explode( ",", $keyArr[1]);
+					//Key/Value array
+						foreach( $assArr as $asar ){ 
+							$break = explode( "=", $asar );
+							if ( isset( $break[1] ) ){
+								$kv[$break[0]] = $break[1]; 
+								$assarr = true; 
+							}else{
+								$kv[] = $break[0];
+							}
+						}
+					//Add the array to our array
+						if ( isset($assarr) ){
+							$arr[$keyArr[0]][] = $kv;
+						}else{
+							$arr[$keyArr[0]] = $kv;
+						}
 				}
+				//if the entry does not contain ":" but contains ",", it's a regular array. 
+				else if( strpos($a,':') !== true && strpos($a,',') !== false ){
+					//Break out each key of assoc. array. 
+						$assArr = explode( ",", $a);
+					//Key/Value array
+						foreach( $assArr as $asar ){ 
+							$break = explode( "=", $asar );
+							$kv[$break[0]] = $break[1]; 
+						}
+					//Add the array to our array
+						$arr[] = $kv;
+				}
+				//If it contains neither, it's simply a value pair. 
+				else if( strpos($a,':') !== true && strpos($a,',') !== true ){
+					//Key/Value array
+						$break = explode( "=", $a );
+						$kv[$break[0]] = $break[1]; 
+					//Add the array to our array
+						$arr = array_merge( $arr, $kv );
+				}
+
+				unset($kv);
 			}
-			foreach( $subArr as $sub ){ $arr[] = $sub; }
 
 			return $arr;
-		}else return array(); 
+		}else{
+			if ( is_array($string) ){
+				return $string;
+			}else{
+				return array(); 
+			}
+		} 
 	}
 
 	//This function checks if a page is currently running a post type created by this plugin. 

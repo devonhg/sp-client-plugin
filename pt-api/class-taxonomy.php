@@ -20,6 +20,25 @@ class MYPLUGIN_pt_tax{
 
         MYPLUGIN_pt_tax::$instances[] = $this; 
 
+        //Get Parent
+        foreach( MYPLUGIN_post_type::$instances as $inst ){
+        	if ( $inst->pt_slug == $this->pt_slug ){
+        		$this->par = $inst; 
+        		break; 
+        	}
+        }
+
+        $sc_array = array(
+        	'tax_query' => array(
+        		array(
+	        		'taxonomy' => $this->tax_slug,
+	        		'field' => 'slug', 
+        		),
+        	),
+        );
+
+        $this->par->reg_sc( str_replace( "tax_", "", $this->tax_slug ) . "_sc", "This is the shortcode automatically generated for " . $this->name . ". Modify the 'cat' attribute to set the category.", $sc_array );
+
         add_action( 'init', array($this, 'initiate_cpt_tax'), 0 );
         add_action( 'plugins_loaded', array($this, 'plugins_action') );
     }
