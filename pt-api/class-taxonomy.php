@@ -11,12 +11,15 @@ class MYPLUGIN_pt_tax{
     var $pt_slug; 
     var $par;
 
+    public $args; 
+
     //Name, Name Singular, Slug, Post-type Slug to use. 
-	public function __construct($name, $name_s, $pt_slug){
+	public function __construct($name, $name_s, $pt_slug, $args = null){
         $this->name = $name;
         $this->name_s = $name_s;
         $this->pt_slug = $pt_slug;
         $this->tax_slug = "tax_" . trim(strtolower($name_s)) . "_" . substr($pt_slug, 3);
+        $this->args = $args; 
 
         MYPLUGIN_pt_tax::$instances[] = $this; 
 
@@ -47,23 +50,27 @@ class MYPLUGIN_pt_tax{
 		$name = $this->name;
 		$name_s = $this->name_s;
 
-		$labels = array(
-			'name'              => _x( $name, 'taxonomy general name' ),
-			'singular_name'     => _x( $name_s, 'taxonomy singular name' ),
-			'search_items'      => __( 'Search ' . $name),
-			'all_items'         => __( 'All ' . $name ),
-			'parent_item'       => __( 'Parent ' . $name_s ),
-			'parent_item_colon' => __( 'Parent ' . $name_s . ':' ),
-			'edit_item'         => __( 'Edit ' . $name_s ), 
-			'update_item'       => __( 'Update ' . $name_s ),
-			'add_new_item'      => __( 'Add New ' . $name_s ),
-			'new_item_name'     => __( 'New ' . $name_s ),
-			'menu_name'         => __( $name ),
-		);
-		$args = array(
-			'labels' => $labels,
-			'hierarchical' => true,
-		);
+		if ( $this->args = null ){
+			$labels = array(
+				'name'              => _x( $name, 'taxonomy general name' ),
+				'singular_name'     => _x( $name_s, 'taxonomy singular name' ),
+				'search_items'      => __( 'Search ' . $name),
+				'all_items'         => __( 'All ' . $name ),
+				'parent_item'       => __( 'Parent ' . $name_s ),
+				'parent_item_colon' => __( 'Parent ' . $name_s . ':' ),
+				'edit_item'         => __( 'Edit ' . $name_s ), 
+				'update_item'       => __( 'Update ' . $name_s ),
+				'add_new_item'      => __( 'Add New ' . $name_s ),
+				'new_item_name'     => __( 'New ' . $name_s ),
+				'menu_name'         => __( $name ),
+			);
+			$args = array(
+				'labels' => $labels,
+				'hierarchical' => true,
+			);
+		}else{
+			$args = $this->args; 
+		}
 		register_taxonomy( $this->tax_slug , $this->pt_slug , $args );	
 	}
 

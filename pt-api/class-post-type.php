@@ -47,8 +47,8 @@ class MYPLUGIN_post_type{
         }
 
     //Register Methods
-        public function reg_tax($name, $name_s ){
-            $a = new MYPLUGIN_pt_tax($name, $name_s, $this->pt_slug );
+        public function reg_tax($name, $name_s, $args = null ){
+            $a = new MYPLUGIN_pt_tax($name, $name_s, $this->pt_slug, $args );
             return $a;
         }
         public function reg_meta($title, $desc, $hide = false , $typ = "text", $options = null){
