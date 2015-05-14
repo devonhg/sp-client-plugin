@@ -55,6 +55,8 @@ class MYPLUGIN_pt_sc{
             endwhile; 
         wp_reset_postdata();
         
+        $out .= "<a href=" . get_post_type_archive_link('pt_books') . ">Books Archive</a>";
+
         return $out;
     }
 }

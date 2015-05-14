@@ -50,7 +50,7 @@ class MYPLUGIN_pt_tax{
 		$name = $this->name;
 		$name_s = $this->name_s;
 
-		if ( $this->args = null ){
+		if ( $this->args == null ){
 			$labels = array(
 				'name'              => _x( $name, 'taxonomy general name' ),
 				'singular_name'     => _x( $name_s, 'taxonomy singular name' ),

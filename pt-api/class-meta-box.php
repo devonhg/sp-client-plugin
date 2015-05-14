@@ -73,7 +73,6 @@ class MYPLUGIN_pt_meta {
 			if ( $type == "media" ){
 				add_action( "admin_enqueue_scripts", array( $this, "media_js" ) );
 			}
-
 		}
 
 

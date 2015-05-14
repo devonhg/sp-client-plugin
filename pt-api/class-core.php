@@ -12,7 +12,6 @@ if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnail
 	function MYPLUGIN_pt_archive(){
 		global $post;
 		$cl = null; 
-
 		foreach( MYPLUGIN_post_type::$instances as $instance ){
 			if ( $instance->pt_slug == $post->post_type ){
 				$cl = $instance;
@@ -28,7 +27,7 @@ if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnail
 			do_action('MYPLUGIN_pt_archive');
 
 		}else{
-			echo "No posts for this post-type.";
+			"No posts for this post-type.";
 		}
 	}
 
@@ -51,6 +50,7 @@ if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnail
 			echo "No posts for this post-type.";
 		}
 	}
+
 
 //Create Admin Page
     new MYPLUGIN_dash_page( "Post Types", "Post Type" );

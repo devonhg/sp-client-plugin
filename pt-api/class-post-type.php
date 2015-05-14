@@ -44,6 +44,8 @@ class MYPLUGIN_post_type{
                 }
 
             add_action( 'init', array($this, 'initiate_cpt'), 0 );
+
+            new MYPLUGIN_filter( $this->pt_slug );
         }
 
     //Register Methods
@@ -93,11 +95,11 @@ class MYPLUGIN_post_type{
 
     //Register Hooks
         public function reg_hooks_single(){
-            add_action("MYPLUGIN_pt_single", array($this, "hook_article_start_single") );
+            //add_action("MYPLUGIN_pt_single", array($this, "hook_article_start_single") );
             foreach( $this->hooks_single as $hook ){
                  add_action("MYPLUGIN_pt_single" , $hook );
             } 
-            add_action("MYPLUGIN_pt_single", array($this, "hook_article_end") );
+            //add_action("MYPLUGIN_pt_single", array($this, "hook_article_end") );
         }
 
         public function reg_hooks_archive(){
@@ -149,7 +151,6 @@ class MYPLUGIN_post_type{
 
     //Default hooks
         public function def_hooks_single(){
-            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_title') );
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_fi') );
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_content') );
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_meta') );
@@ -157,7 +158,6 @@ class MYPLUGIN_post_type{
         }
 
         public function def_hooks_archive(){
-            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_title_a') );
             $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_fimed_a') );
             $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_excerpt') );
         }
