@@ -1,6 +1,6 @@
 //Media Uploader Javascript
 jQuery(document).ready(function($) {
-    $(document).on("click", ".upload_image_button", function() {
+    $(document).on("click", ".pt_image_button", function() {
 
         jQuery.data(document.body, 'prevElement', $(this).prev());
 

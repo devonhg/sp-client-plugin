@@ -3,7 +3,7 @@ jQuery(document).ready(function($){
   
 
   //The button in the editor
-  $('.cmb_link_button').on('click', function(event) {
+  $('.pt_link_button').on('click', function(event) {
 
     jQuery.data(document.body, 'prevElement', $(this).prev());
 

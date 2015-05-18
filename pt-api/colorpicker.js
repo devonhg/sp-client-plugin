@@ -1,3 +1,3 @@
 jQuery(document).ready(function($){
-    $('.my-color-field').wpColorPicker();
+    $('.pt-color-field').wpColorPicker();
 });

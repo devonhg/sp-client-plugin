@@ -42,5 +42,7 @@ $pt_books->reg_meta('Number', 'Input a Number', true, 'number');
 
 $pt_books->reg_meta('Link', 'Input a Link', true, 'link');
 
+$pt_books->reg_meta('Media', 'Input media', true, 'media');
+
 $pt_movies = new MYPLUGIN_post_type( "Movies", "Movie", "This post-type is for books." ); 
 $pt_movies->reg_tax("Genres", "Genre" );

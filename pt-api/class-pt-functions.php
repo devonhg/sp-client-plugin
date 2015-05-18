@@ -85,7 +85,7 @@ class MYPLUGIN_func{
 
 	    if ( ! empty( $tax_terms ) ){
 	            foreach ($tax_terms as $tax_term){
-	            	if (has_term($tax_term, $tax, $pID)){
+	            	if (has_term($tax_term->slug, $tax, $pID)){
 				        $output .= "<h3>" . $tax_info->labels->name . "</h3>";
 				        $output .= "<ul>";
 				        break; 
@@ -93,7 +93,7 @@ class MYPLUGIN_func{
 	            }
 
 	            foreach ($tax_terms as $tax_term){
-	            	if (has_term($tax_term, $tax, $pID)){
+	            	if (has_term($tax_term->slug, $tax, $pID)){
 	                	$output .= '<li>' . '<a href="' . esc_attr(get_term_link($tax_term, $tax)) . '" title="' . 
 	                		sprintf( __( "View all items in %s" ), $tax_term->name ) . '" ' . '>' . $tax_term->name . 
 	                		'</a></li>';

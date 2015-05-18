@@ -62,6 +62,8 @@ class MYPLUGIN_pt_meta {
 			add_action( 'load-post.php', array( $this, 'call_mb' ) );
 			add_action( 'load-post-new.php', array( $this, 'call_mb' ) );
 
+
+
 			if ( $type == "color" ){
 				add_action( "admin_enqueue_scripts", array( $this, "color_style_f" ) );
 			}
@@ -73,31 +75,42 @@ class MYPLUGIN_pt_meta {
 			if ( $type == "media" ){
 				add_action( "admin_enqueue_scripts", array( $this, "media_js" ) );
 			}
+
+
 		}
 
 
 	//Enqueuing Functions
 		public function color_style_f(){
-			wp_enqueue_style( 'wp-color-picker' ); 
-			wp_enqueue_script( 'cp-script', 
-								plugin_dir_url( __FILE__ ) . "colorpicker.js" , 
-								array( 'wp-color-picker' ), 
-								false, 
-								true );	
+			$scrn = get_current_screen(); 
+			if ( $scrn->post_type == $this->pt ){
+				wp_enqueue_style( 'wp-color-picker' ); 
+				wp_enqueue_script( 'cp-script', 
+									plugin_dir_url( __FILE__ ) . "colorpicker.js" , 
+									array( 'wp-color-picker' ), 
+									false, 
+									true );	
+			}
 		}
 
 		public function media_js(){
-			wp_enqueue_script( 'pt-uploader-script', plugin_dir_url( __FILE__ ) . "uploader-script.js" );
+			$scrn = get_current_screen(); 
+			if ( $scrn->post_type == $this->pt ){
+				wp_enqueue_script( 'pt-uploader-script', plugin_dir_url( __FILE__ ) . "uploader-script.js" );
+			}
 		}
 
 		public function color_style_links(){
-			wp_enqueue_script( 'wp-link' );
-			wp_enqueue_script( 'link-script', plugin_dir_url( __FILE__ ) . "cmb.js" );
+			$scrn = get_current_screen(); 
+			if ( $scrn->post_type == $this->pt ){
+				wp_enqueue_script( 'wp-link' );
+				wp_enqueue_script( 'link-script', plugin_dir_url( __FILE__ ) . "cmb.js" );
+			}
 		}
 
 		public function call_mb() {
-			add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
-			add_action( 'save_post', array( $this, 'save' ) );		
+				add_action( 'add_meta_boxes', array( $this, 'add_meta_box' ) );
+				add_action( 'save_post', array( $this, 'save' ) );	
 		}
 
 	//Add the meta box container
@@ -212,7 +225,7 @@ class MYPLUGIN_pt_meta {
 
 	        	if ( $value == "" ) { $value = ""; }; 
 
-				echo '<input type="text" class="my-color-field" id="' . $this->new_field .
+				echo '<input type="text" class="pt-color-field" id="' . $this->new_field .
 					'" name="' . $this->new_field . '"';
 
 		        echo ' value="' . esc_attr( $value ) . '" size="25" />';
@@ -225,7 +238,7 @@ class MYPLUGIN_pt_meta {
 				echo '<input class="cmb_text_link" type="text" size="25" id="' . $this->new_field . 
 					'" name="' . $this->new_field . '" value="' . esc_attr( $value ) . '" />';
 
-	  			echo '<input class="cmb_link_button button" type="button" value="Get Link" />';
+	  			echo '<input class="pt_link_button button" type="button" value="Get Link" />';
 	        }
 
 	        if ( $this->type == "media" ){
@@ -239,7 +252,7 @@ class MYPLUGIN_pt_meta {
 				echo "<input type='text' size='25' name=" . $this->new_field . " id=" . $this->new_field  . 
 					" value=" . $value . ">";
 					
-				echo "<input class='upload_image_button button' type='button' value='Upload Media' >";
+				echo "<input class='pt_image_button button' type='button' value='Upload Media' >";
 	        }
 		}
 }
