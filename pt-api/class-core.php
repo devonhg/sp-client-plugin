@@ -52,5 +52,21 @@ if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnail
 		}
 	}
 	
+//Initation Hooks
+	function MYPLUGIN_activate() {
+	    if ( ! get_option( 'MYPLUGIN_flush_flag' ) ) {
+	        add_option( 'MYPLUGIN_flush_flag', true );
+	    }
+	}
+
+	add_action( 'init', 'MYPLUGIN_rewrite', 20 );
+	function MYPLUGIN_rewrite() {
+	    if ( get_option( 'MYPLUGIN_flush_flag' ) ) {
+	        flush_rewrite_rules();
+	        delete_option( 'MYPLUGIN_flush_flag' );
+	    }
+	}
+
+
 //Create Admin Page
     new MYPLUGIN_dash_page( "Post Types", "Post Type" );
