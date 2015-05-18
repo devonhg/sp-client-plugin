@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
 */
 
 //Include the core class of the post type api
-include_once('pt-api/class-core.php');
+    include_once('pt-api/class-core.php');
 
 $pt_books = new MYPLUGIN_post_type( "Books", "Book", "This post-type is for books." ); 
 
