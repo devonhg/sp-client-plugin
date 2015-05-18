@@ -51,16 +51,16 @@ if ( ! get_theme_support( 'post-thumbnails' )) add_theme_support('post-thumbnail
 			echo "No posts for this post-type.";
 		}
 	}
-	
+
 //Initation Hooks
-	function MYPLUGIN_activate() {
+	function MYPLUGIN_ptapi_activate() {
 	    if ( ! get_option( 'MYPLUGIN_flush_flag' ) ) {
 	        add_option( 'MYPLUGIN_flush_flag', true );
 	    }
 	}
 
-	add_action( 'init', 'MYPLUGIN_rewrite', 20 );
-	function MYPLUGIN_rewrite() {
+	add_action( 'init', 'MYPLUGIN_ptapi_rewrite', 20 );
+	function MYPLUGIN_ptapi_rewrite() {
 	    if ( get_option( 'MYPLUGIN_flush_flag' ) ) {
 	        flush_rewrite_rules();
 	        delete_option( 'MYPLUGIN_flush_flag' );

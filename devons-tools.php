@@ -20,7 +20,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
 
 //Include the core class of the post type api
     include_once('pt-api/class-core.php');
-    register_activation_hook( __FILE__, 'MYPLUGIN_activate' );
+    register_activation_hook( __FILE__, 'MYPLUGIN_ptapi_activate' );
 
 $pt_books = new MYPLUGIN_post_type( "Books", "Book", "This post-type is for books." ); 
 
