@@ -54,7 +54,7 @@ class MYPLUGIN_pt_pcs{
 			$out = "";
 	    	if ( has_post_thumbnail( $post->ID ) ){
 		    	$out .= "<div class='" . "MYPLUGIN-image" . "'>";
-		    		$out .= get_the_post_thumbnail( $post->ID ); 
+		    		$out .= get_the_post_thumbnail( $post->ID, "full" ); 
 		    	$out .= "</div>";
 			}		
 
@@ -186,4 +186,12 @@ class MYPLUGIN_pt_pcs{
 
 			echo $out; 	
 		}
+
+	//Special Wrapper Functions
+		public static function pc_div_start( $quer = null ){
+			echo "<div>"; 	
+		}		
+		public static function pc_div_end( $quer = null ){
+			echo "</div>"; 	
+		}	
 }
