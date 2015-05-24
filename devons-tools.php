@@ -22,28 +22,24 @@ if ( ! defined( 'WPINC' ) ) { die; }
     include_once('pt-api/class-core.php');
     register_activation_hook( __FILE__, 'MYPLUGIN_ptapi_activate' );
 
-$pt_books = new MYPLUGIN_post_type( "Books", "Book", "This post-type is for books." ); 
+//Create Post-Type Object
+    $pt_books = new MYPLUGIN_post_type( "Books", "Book", "This post-type is for books." ); 
 
-$pt_books->reg_tax("Genres", "Genre" );
+//Register Taxonomies
+    $pt_books->reg_tax("Genres", "Genre" );
+    $pt_books->reg_tax("Authors", "Author" );
 
-$querarr = array(
-    "p" => 208,
-);
+//Modify Hooks
+    $pt_books->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_media') );
 
-$pt_books->reg_tax("Authors", "Author" );
+//Add Meta
+    $pt_books->reg_meta('Price', 'The Cost of the Book', true);
+    $pt_books->reg_meta('Color1', 'Color', true, 'color');
+    $pt_books->reg_meta('Color2', 'Color2', true, 'color');
+    $pt_books->reg_meta('Number', 'Input a Number', true, 'number');
+    $pt_books->reg_meta('Link', 'Input a Link', true, 'link');
+    $pt_books->reg_meta('Media', 'Input media', true, 'media');
 
-$pt_books->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_media') );
-
-$pt_books->reg_meta('Price', 'The Cost of the Book', true);
-
-$pt_books->reg_meta('Color1', 'Color', true, 'color');
-$pt_books->reg_meta('Color2', 'Color2', true, 'color');
-
-$pt_books->reg_meta('Number', 'Input a Number', true, 'number');
-
-$pt_books->reg_meta('Link', 'Input a Link', true, 'link');
-
-$pt_books->reg_meta('Media', 'Input media', true, 'media');
-
-$pt_movies = new MYPLUGIN_post_type( "Movies", "Movie", "This post-type is for books." ); 
-$pt_movies->reg_tax("Genres", "Genre" );
+//Movies Post-Type
+    $pt_movies = new MYPLUGIN_post_type( "Movies", "Movie", "This post-type is for books." ); 
+    $pt_movies->reg_tax("Genres", "Genre" );

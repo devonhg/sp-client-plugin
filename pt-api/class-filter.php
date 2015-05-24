@@ -16,7 +16,7 @@ class MYPLUGIN_filter{
 		global $post;
 		$out = "";
 
-		if ( is_main_query() && !is_feed() && !is_home() && $post->post_type = $this->pt ){
+		if ( is_main_query() && !is_feed() && !is_home() && $post->post_type == $this->pt ){
 			if ( is_archive() ){
 				ob_start();
 				MYPLUGIN_pt_archive();

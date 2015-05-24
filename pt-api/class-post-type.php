@@ -9,6 +9,7 @@ class MYPLUGIN_post_type{
         public $pt_slug;
         public $classes;
         public $desc;
+        public $filter;
         static $instances = array(); 
         
     //Private Properties
@@ -45,7 +46,7 @@ class MYPLUGIN_post_type{
 
             add_action( 'init', array($this, 'initiate_cpt'), 0 );
 
-            new MYPLUGIN_filter( $this->pt_slug );
+            $this->filter = new MYPLUGIN_filter( $this->pt_slug );
         }
 
     //Register Methods
@@ -151,7 +152,6 @@ class MYPLUGIN_post_type{
 
     //Default hooks
         public function def_hooks_single(){
-            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_fi') );
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_content') );
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_meta') );
             $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_cats') );
