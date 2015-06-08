@@ -42,7 +42,9 @@ class MYPLUGIN_func{
 			foreach($pst_meta as $key){
 				if ( $key->pt == get_post_type( $ID ) && !( $key->hidden ) && $key->type == "media" ){
 					$link = $key->get_val();
-					$out .= MYPLUGIN_func::media_check( $link );
+					if ( $link != "" ){
+						$out .= "<li>" . GMEPLG_func::media_check( $link ) . "</li>";
+					}
 				}
 			} 
 		$out .= "</ul>";
@@ -54,7 +56,7 @@ class MYPLUGIN_func{
 	public static function media_check( $link ){
 		if ( strpos($link,'.jpeg') !== false || strpos($link,'.jpg') !== false ||  strpos($link,'.png') !== false || 
 				strpos($link,'.gif') || strpos($link,'.ico') || strpos($link,'.svg') ){
-			return "<img class='media-element' style='max-width: 100%; height:auto' src='" . $link . "'>";
+			return "<a target='_blank' href='" . $link . "'><img class='media-element' style='max-width: 100%; height:auto' src='" . $link . "'></a>";
 		}
 		if ( strpos($link,'.mp4') !== false || strpos($link,'.m4v') !== false || strpos($link,'.mov') !== false || 
 				strpos($link,'.wmv') !== false || strpos($link,'.avi') !== false || strpos($link,'.mpg') !== false ||

@@ -24,7 +24,7 @@ class MYPLUGIN_pt_pcs{
 
 			$out = "";
 	   		$out .= "<div class=' MYPLUGIN-content '>";
-		    			$out .= $post->post_content; 
+		    			$out .= str_replace("\r", "<br />", $post->post_content );
 		    $out .= "</div>";
 		
 			echo $out;
@@ -35,12 +35,11 @@ class MYPLUGIN_pt_pcs{
 
 			$out = "";
 	   		$out .= "<div class=' MYPLUGIN-excerpt '>";
-	   			if ( $post->post_excerpt ) {
-	   				$out .= $post->post_excerpt; 
-	   			}else{
-	   				$out .= $post->post_content; 
-	   			}
-		    			
+	   			$exc =  get_the_excerpt();
+	   			$out .= "<p>";
+		   			$out .= substr( $exc, 0, -11 );
+		   			$out .= "...<a href='" . get_the_permalink( $post->ID ) . "' title='Read More'>Read More</a>";
+	   			$out .= "</p>";			
 		    $out .= "</div>";
 		
 			echo $out;

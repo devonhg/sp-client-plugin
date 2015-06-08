@@ -219,7 +219,7 @@ class MYPLUGIN_pt_meta {
 	        	}
 	        }
 	        if ( $this->type == "textarea"){
-					echo "<textarea name='" . $this->new_field . "'>" . esc_attr( $value ) . "</textarea>";
+					echo "<textarea style='max-width:100%; width:100%; min-height:200px;' name='" . $this->new_field . "'>" . esc_attr( $value ) . "</textarea>";
 	        }
 	        if ( $this->type == "color" ){
 
