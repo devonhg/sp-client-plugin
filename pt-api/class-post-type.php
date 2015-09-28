@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'WPINC' ) ) { die; }
 
-class MYPLUGIN_post_type{
+class DHG_CLI_post_type{
 
     //Public Properties
         public $name;
@@ -23,7 +23,7 @@ class MYPLUGIN_post_type{
         public function __construct( $name , $name_s , $desc = "", $classes = "", $default = true, $args = null ){
 
             //Set class values
-                MYPLUGIN_post_type::$instances[] = $this; 
+                DHG_CLI_post_type::$instances[] = $this; 
                 $this->name = $name;
                 $this->name_s = $name_s;
                 $this->pt_slug = "pt_" . str_replace(" ", "_",trim(strtolower($name)));
@@ -46,20 +46,20 @@ class MYPLUGIN_post_type{
 
             add_action( 'init', array($this, 'initiate_cpt'), 0 );
 
-            $this->filter = new MYPLUGIN_filter( $this->pt_slug );
+            $this->filter = new DHG_CLI_filter( $this->pt_slug );
         }
 
     //Register Methods
         public function reg_tax($name, $name_s, $args = null ){
-            $a = new MYPLUGIN_pt_tax($name, $name_s, $this->pt_slug, $args );
+            $a = new DHG_CLI_pt_tax($name, $name_s, $this->pt_slug, $args );
             return $a;
         }
         public function reg_meta($title, $desc, $hide = false , $typ = "text", $options = null){
-            $a = new MYPLUGIN_pt_meta($title, $desc, $this->pt_slug , $hide , $typ, $options );
+            $a = new DHG_CLI_pt_meta($title, $desc, $this->pt_slug , $hide , $typ, $options );
             return $a;
         }
         public function reg_sc($name, $desc, $query = array() ){
-            $a = new MYPLUGIN_pt_sc($this->pt_slug, $this, $name, $desc, $query);
+            $a = new DHG_CLI_pt_sc($this->pt_slug, $this, $name, $desc, $query);
             return $a;
         }
 
@@ -96,19 +96,19 @@ class MYPLUGIN_post_type{
 
     //Register Hooks
         public function reg_hooks_single(){
-            //add_action("MYPLUGIN_pt_single", array($this, "hook_article_start_single") );
+            //add_action("DHG_CLI_pt_single", array($this, "hook_article_start_single") );
             foreach( $this->hooks_single as $hook ){
-                 add_action("MYPLUGIN_pt_single" , $hook );
+                 add_action("DHG_CLI_pt_single" , $hook );
             } 
-            //add_action("MYPLUGIN_pt_single", array($this, "hook_article_end") );
+            //add_action("DHG_CLI_pt_single", array($this, "hook_article_end") );
         }
 
         public function reg_hooks_archive(){
-            add_action("MYPLUGIN_pt_archive", array($this, "hook_article_start_archive") );
+            add_action("DHG_CLI_pt_archive", array($this, "hook_article_start_archive") );
             foreach( $this->hooks_archive as $hook ){
-                 add_action("MYPLUGIN_pt_archive" , $hook );
+                 add_action("DHG_CLI_pt_archive" , $hook );
             } 
-            add_action("MYPLUGIN_pt_archive", array($this, "hook_article_end") );
+            add_action("DHG_CLI_pt_archive", array($this, "hook_article_end") );
         }
 
         public function reg_hooks_sc(){
@@ -152,37 +152,37 @@ class MYPLUGIN_post_type{
 
     //Default hooks
         public function def_hooks_single(){
-            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_content') );
-            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_meta') );
-            $this->add_hook_single( array("MYPLUGIN_pt_pcs",'pc_cats') );
+            $this->add_hook_single( array("DHG_CLI_pt_pcs",'pc_content') );
+            $this->add_hook_single( array("DHG_CLI_pt_pcs",'pc_meta') );
+            $this->add_hook_single( array("DHG_CLI_pt_pcs",'pc_cats') );
         }
 
         public function def_hooks_archive(){
-            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_fimed_a') );
-            $this->add_hook_archive( array("MYPLUGIN_pt_pcs",'pc_excerpt') );
+            $this->add_hook_archive( array("DHG_CLI_pt_pcs",'pc_fimed_a') );
+            $this->add_hook_archive( array("DHG_CLI_pt_pcs",'pc_excerpt') );
         }
 
         public function def_hooks_shortcode(){
-            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pc_title_a') );
-            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pc_fimed_a') );
-            $this->add_hook_sc( array("MYPLUGIN_pt_pcs",'pc_excerpt') );
+            $this->add_hook_sc( array("DHG_CLI_pt_pcs",'pc_title_a') );
+            $this->add_hook_sc( array("DHG_CLI_pt_pcs",'pc_fimed_a') );
+            $this->add_hook_sc( array("DHG_CLI_pt_pcs",'pc_excerpt') );
         }
 
     //Special Hooks
         public function hook_article_start_single( $quer = null ){
-            $post = MYPLUGIN_func::get_post( $quer );
+            $post = DHG_CLI_func::get_post( $quer );
             $classes = implode( " ", get_post_class( "", $post->ID ) );
             echo "<article class='" . $this->classes . " " . $classes . " ar_single'>";
         }
 
         public function hook_article_start_archive( $quer = null ){
-            $post = MYPLUGIN_func::get_post( $quer );
+            $post = DHG_CLI_func::get_post( $quer );
             $classes = implode( " ", get_post_class( "", $post->ID ) );
             echo "<article class='" . $this->classes . " " . $classes . " ar_archive'>";
         }
 
         public function hook_article_start_sc( $quer = null ){
-            $post = MYPLUGIN_func::get_post( $quer );
+            $post = DHG_CLI_func::get_post( $quer );
             $classes = implode( " ", get_post_class( "", $post->ID ) );
             echo "<article class='" . $this->classes . " " . $classes . " ar_shortcode'>";
         }
@@ -228,7 +228,7 @@ class MYPLUGIN_post_type{
                     'label'               => __( $name, 'twentythirteen' ),
                     'description'         => __( 'Contains the post data for ' . $name_s . ".", 'twentythirteen' ),
                     'labels'              => $labels,
-                    'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', ),
+                    'supports'            => array( 'title', 'editor', 'thumbnail', 'revisions', 'comments'),
                     'hierarchical'        => false,
                     'public'              => true,
                     'show_ui'             => true,
@@ -237,9 +237,9 @@ class MYPLUGIN_post_type{
                     'show_in_admin_bar'   => true,
                     'menu_position'       => 5,
                     'can_export'          => true,
-                    'menu_icon'           => "dashicons-media-document",
-                    'has_archive'         => true,
-                    'exclude_from_search' => false,
+                    'menu_icon'           => "dashicons-playlist-audio",
+                    'has_archive'         => false,
+                    'exclude_from_search' => true,
                     'publicly_queryable'  => true,
                     'capability_type'     => 'page',
                 );
