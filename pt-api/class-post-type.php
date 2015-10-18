@@ -10,6 +10,7 @@ class DHG_CLI_post_type{
         public $classes;
         public $desc;
         public $filter;
+        public $sc; 
         static $instances = array(); 
         
     //Private Properties
@@ -20,7 +21,7 @@ class DHG_CLI_post_type{
 
 
     //Magic Methods
-        public function __construct( $name , $name_s , $desc = "", $classes = "", $default = true, $args = null ){
+        public function __construct( $name , $name_s , $desc = "", $classes = "", $default = true, $args = null, $sc = true ){
 
             //Set class values
                 DHG_CLI_post_type::$instances[] = $this; 
@@ -30,6 +31,7 @@ class DHG_CLI_post_type{
                 $this->desc = $desc; 
                 $this->classes = $classes;
                 $this->args = $args; 
+                $this->sc = $sc; 
 
             //Generate Default Shortcode
                 $sc_desc = "This is the default shortcode automatically generated for " . 
@@ -41,7 +43,9 @@ class DHG_CLI_post_type{
                 if ( $default ){
                     $this->def_hooks_single();
                     $this->def_hooks_archive();
-                    $this->def_hooks_shortcode();
+                    if ( $sc ){
+                        $this->def_hooks_shortcode();
+                    }
                 }
 
             add_action( 'init', array($this, 'initiate_cpt'), 0 );
