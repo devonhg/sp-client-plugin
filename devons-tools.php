@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Devons Tools - Client Projects
  * Plugin URI:        http://dhgodfrey.net
  * Description:       This is a plugin for private client pages, very useful in interacting with clients for project development. 
- * Version:           v1.1.1
+ * Version:           v1.1.2
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+
@@ -99,7 +99,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
             $link = get_permalink( $post->ID );
             $out = "";
 
-            $out .= "<a class='music_feedback' href='" . $link . "' title='" . $post->post_title . "' >";
+            $out .= "<a target='_blank' class='music_feedback' href='" . $link . "' title='Leave feedback for " . $post->post_title . "' >";
                 $out .= "<h3>";
                     $out .= "Leave Feedback"; 
                 $out .= "</h3>";
