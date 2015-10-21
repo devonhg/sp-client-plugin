@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Devons Tools - Client Projects
  * Plugin URI:        http://dhgodfrey.net
  * Description:       This is a plugin for private client pages, very useful in interacting with clients for project development. 
- * Version:           v1.1.5
+ * Version:           v1.1.6
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+
@@ -192,7 +192,6 @@ if ( ! defined( 'WPINC' ) ) { die; }
                 foreach( $m_posts as $m_post ){
                     //Check if has term
                     $has_term = has_term( $d_term->term_id ,$tax, $m_post->ID );
-                    var_dump( $has_term );
                     if ( $has_term ){
                             remove_action('save_post', 'CLIENT_set_songs_pw');
                             $post_update = array(
