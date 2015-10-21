@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Devons Tools - Client Projects
  * Plugin URI:        http://dhgodfrey.net
  * Description:       This is a plugin for private client pages, very useful in interacting with clients for project development. 
- * Version:           v1.1.2
+ * Version:           v1.1.3
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+
@@ -188,23 +188,25 @@ if ( ! defined( 'WPINC' ) ) { die; }
             $d_term = get_term_by( "slug", $post->post_title, $tax );
             $m_posts = DHG_get_post_type_items( $pt_music->pt_slug );
 
-            foreach( $m_posts as $m_post ){
-                //Check if has term
-                $has_term = has_term( $d_term->term_id ,$tax, $m_post->ID );
-                if ( $has_term ){
+            if ( is_array( $m_posts ) ){
+                foreach( $m_posts as $m_post ){
+                    //Check if has term
+                    $has_term = has_term( $d_term->term_id ,$tax, $m_post->ID );
+                    if ( $has_term ){
 
-                    if ( ! wp_is_post_revision( $post->ID) ){
-                        remove_action('save_post', 'CLIENT_set_songs_pw');
-                        $post_update = array(
-                            "ID" => $m_post->ID,
-                            "post_status" => $post->post_status,
-                            "post_password" => $post->post_password,
-                        );
-                        wp_update_post( $post_update );
-                        add_action('save_post', 'CLIENT_set_songs_pw');
-                        break; 
-                    }
-                } 
+                        if ( ! wp_is_post_revision( $post->ID) ){
+                            remove_action('save_post', 'CLIENT_set_songs_pw');
+                            $post_update = array(
+                                "ID" => $m_post->ID,
+                                "post_status" => $post->post_status,
+                                "post_password" => $post->post_password,
+                            );
+                            wp_update_post( $post_update );
+                            add_action('save_post', 'CLIENT_set_songs_pw');
+                            break; 
+                        }
+                    } 
+                }
             }
         }
         add_action('save_post', 'CLIENT_set_songs_pw');
@@ -218,20 +220,22 @@ if ( ! defined( 'WPINC' ) ) { die; }
             $d_term = wp_get_post_terms( $post->ID, $tax );
             $m_posts = DHG_get_post_type_items( $pt_client->pt_slug );            
 
-            foreach( $m_posts as $m_post ){
-                $pt = preg_replace("/[^A-Za-z0-9]/", "", $m_post->post_title); 
-                $tt = preg_replace("/[^A-Za-z0-9]/", "", $d_term[0]->name); 
+            if ( is_array() ){
+                foreach( $m_posts as $m_post ){
+                    $pt = preg_replace("/[^A-Za-z0-9]/", "", $m_post->post_title); 
+                    $tt = preg_replace("/[^A-Za-z0-9]/", "", $d_term[0]->name); 
 
-                if( $pt == $tt ){
-                    remove_action('save_post', 'MUSIC_set_songs_pw');
-                    $post_update = array(
-                        "ID" => $post->ID,
-                        "post_status" => $m_post->post_status,
-                        "post_password" => $m_post->post_password,
-                    );
-                    wp_update_post( $post_update );
-                    add_action('save_post', 'MUSIC_set_songs_pw');
-                    break; 
+                    if( $pt == $tt ){
+                        remove_action('save_post', 'MUSIC_set_songs_pw');
+                        $post_update = array(
+                            "ID" => $post->ID,
+                            "post_status" => $m_post->post_status,
+                            "post_password" => $m_post->post_password,
+                        );
+                        wp_update_post( $post_update );
+                        add_action('save_post', 'MUSIC_set_songs_pw');
+                        break; 
+                    }
                 }
             }
         }
