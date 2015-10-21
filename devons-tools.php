@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) { die; }
  * Plugin Name:       Devons Tools - Client Projects
  * Plugin URI:        http://dhgodfrey.net
  * Description:       This is a plugin for private client pages, very useful in interacting with clients for project development. 
- * Version:           v1.1.4
+ * Version:           v1.1.5
  * Author:            Devon Godfrey
  * Author URI:        http://playfreygames.net
  * License:           GPL-2.0+
@@ -183,18 +183,17 @@ if ( ! defined( 'WPINC' ) ) { die; }
         function CLIENT_set_songs_pw(){
             global $pt_music, $post, $pt_client, $pt_music_client_tax; 
             if ($post->post_type != $pt_client->pt_slug) return;
-
+   
             $tax = $pt_music_client_tax->tax_slug;
             $d_term = get_term_by( "slug", $post->post_title, $tax );
             $m_posts = DHG_get_post_type_items( $pt_music->pt_slug );
 
-            if ( is_array( $m_posts ) ){
+            if ( $m_posts !== false ){
                 foreach( $m_posts as $m_post ){
                     //Check if has term
                     $has_term = has_term( $d_term->term_id ,$tax, $m_post->ID );
+                    var_dump( $has_term );
                     if ( $has_term ){
-
-                        if ( ! wp_is_post_revision( $post->ID) ){
                             remove_action('save_post', 'CLIENT_set_songs_pw');
                             $post_update = array(
                                 "ID" => $m_post->ID,
@@ -203,13 +202,13 @@ if ( ! defined( 'WPINC' ) ) { die; }
                             );
                             wp_update_post( $post_update );
                             add_action('save_post', 'CLIENT_set_songs_pw');
-                            break; 
-                        }
                     } 
                 }
             }
+
         }
-        add_action('save_post', 'CLIENT_set_songs_pw');
+        //add_action('save_post', 'CLIENT_set_songs_pw');
+        add_action( 'post_submitbox_misc_actions' , 'CLIENT_set_songs_pw' );
 
     //On saving a song, it checks the client project, and updates itself. 
         function MUSIC_set_songs_pw(){
